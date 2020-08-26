@@ -1,0 +1,13 @@
+jupyterlab
+ipykernel==5.1.1
+nbformat==4.4.0
+numpy
+pyyaml
+scipy
+ipython
+mkl
+mkl-include
+ninja
+cython
+typing
+matplotlib
