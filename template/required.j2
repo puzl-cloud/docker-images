@@ -1,0 +1,102 @@
+{%- macro install_pakage() -%}
+RUN apt-get update \
+    && apt-get install -y software-properties-common \
+    && add-apt-repository ppa:git-core/ppa -y \
+    && add-apt-repository ppa:deadsnakes/ppa -y \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+         build-essential \
+         openssh-server \
+         git \
+         locales \
+         rsync \
+         curl \
+         wget \
+         iputils-ping \
+         telnet \
+         screen \
+         nano \
+         vim \
+         sudo \
+         unzip \
+         ${INTERPRETER} \
+         ${INTERPRETER}-distutils \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+{% endmacro %}
+
+{%- macro add_user() -%}
+RUN addgroup --gid "$GID" "$USER" \
+    && adduser \
+         --disabled-password \
+         --gecos "" \
+         --ingroup "$USER" \
+         --uid "$UID" \
+         --shell /bin/bash \
+         "$USER"
+{% endmacro %}
+
+{%- macro configure() -%}
+RUN rm -f /etc/ssh/ssh_host_*key* \
+    && mkdir -p \
+         /run/sshd \
+         /home/"$USER"/.ssh \
+    && chmod 700 /home/"$USER"/.ssh \
+    && chown $USER:$USER -R /home/"$USER" /tmp \
+    && echo "ubuntu ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/90-ubuntu \
+    && chmod 600 /home/"$USER"/.ssh/config \
+    && chown -R $USER:$USER /home/"$USER"/.ssh
+{% endmacro %}
+
+{%- macro clean_up() -%}
+RUN rm -rf \
+        /var/cache/debconf \
+        /tmp/*
+{% endmacro %}
+
+{%- macro create_link() -%}
+RUN rm -rf /usr/local/bin/pip3 \
+      /usr/local/bin/pip \
+      /usr/bin/python3 \
+      /usr/bin/python \
+    && ln -s /usr/local/bin/pip${INTERPRETER_VERSION} /usr/local/bin/pip \
+    && ln -s /usr/local/bin/pip${INTERPRETER_VERSION} /usr/local/bin/pip3 \
+    && ln -s /usr/bin/${INTERPRETER} /usr/bin/python3 \
+    && ln -s /usr/bin/python3 /usr/bin/python
+{% endmacro %}
+
+{%- macro install_pip() -%}
+RUN curl https://bootstrap.pypa.io/get-pip.py -o /tmp/get-pip.py \
+    && ${INTERPRETER} /tmp/get-pip.py \
+    && rm -rf /tmp/get-pip.py
+{% endmacro %}
+
+{%- macro install_conda() -%}
+RUN curl -o ~/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
+    && chmod +x ~/miniconda.sh \
+    && ~/miniconda.sh -b -p /opt/conda \
+    && rm ~/miniconda.sh
+{% endmacro %}
+
+{%- macro install_default_pip_package() -%}
+RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
+{% endmacro %}
+
+{%- macro install_pip_package(packages) -%}
+RUN ${INTERPRETER} -m pip install \
+  {%- for package in packages -%}
+    {% if package.version|length %}
+      {{ package.name }}=={{ package.version }} \
+    {%- else %}
+      {{ package.name }} \
+    {% endif %}
+  {%- endfor -%}
+    && ${INTERPRETER} -m pip cache purge
+{% endmacro %}
+
+{%- macro install_rclone() -%}
+RUN curl https://rclone.org/install.sh -o ~/install.sh \
+    && chmod +x ~/install.sh \
+    && ~/install.sh \
+    && rm ~/install.sh
+{% endmacro %}

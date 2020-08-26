@@ -1,0 +1,14 @@
+{
+    "image":"pytorch/pytorch",
+    "tag":"1.5.1-cuda10.1-cudnn7-devel",
+    "packages": [
+        {
+            "name": "torch",
+            "version": "1.5.1"
+        },
+        {
+            "name": "torchvision",
+            "version": ""
+        }
+    ]
+}

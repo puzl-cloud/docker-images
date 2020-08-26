@@ -1,0 +1,48 @@
+{%- macro fromOfficial(image, tag) -%}
+FROM {{ image }}:{{ tag }}
+{% endmacro %}
+
+{%- macro label() -%}
+LABEL maintainer=sergey.monakhov@gmail.com \
+      vendor=puzl.ee
+{% endmacro %}
+
+{%- macro arg(arg) -%}
+ARG {{ arg }}
+{% endmacro %}
+
+{%- macro add(source, target) -%}
+ADD {{ source }} {{ target }}
+{% endmacro %}
+
+{%- macro copy(source, target) -%}
+COPY {{ source }} {{ target }}
+{% endmacro %}
+
+{%- macro expose(port) -%}
+EXPOSE {{ port }}
+{% endmacro %}
+
+{%- macro workdir(path) -%}
+WORKDIR {{ path }}
+{% endmacro %}
+
+{%- macro user(uid) -%}
+USER {{ uid }}
+{% endmacro %}
+
+{%- macro volume(volume) -%}
+VOLUME {{ volume }}
+{% endmacro %}
+
+{%- macro entrypoint(command) -%}
+ENTRYPOINT {{ command }}
+{% endmacro %}
+
+{%- macro cmd(command) -%}
+CMD {{ command }}
+{%- endmacro -%}
+
+{%- macro shell(shell) -%}
+SHELL {{ shell }}
+{% endmacro %}
