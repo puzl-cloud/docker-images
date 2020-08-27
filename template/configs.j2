@@ -3,5 +3,5 @@ COPY template/configs/sshd_config /home/"$USER"/.ssh/sshd_config
 COPY template/configs/config /home/"$USER"/.ssh/config
 COPY template/configs/bash.bashrc /etc/bash.bashrc
 COPY template/configs/requirements.txt /tmp/requirements.txt
-COPY test/test.sh /usr/local/bin/test.sh
+COPY test/run_test.sh /usr/local/bin/run_test.sh
 {% endmacro %}

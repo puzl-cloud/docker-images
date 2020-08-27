@@ -3,7 +3,7 @@
 {%- import "template/configs.j2" as configs -%}
 {%- import "template/required.j2" as required -%}
 
-{{ docker.fromOfficial(image, tag) }}
+{{ docker.fromOfficial(sourceImage, sourceTag) }}
 {{ docker.arg("INTERPRETER") }}
 {{ docker.arg("INTERPRETER_VERSION") }}
 {{ docker.label() }}
