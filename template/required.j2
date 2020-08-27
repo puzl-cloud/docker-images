@@ -45,7 +45,9 @@ RUN rm -f /etc/ssh/ssh_host_*key* \
     && chown $USER:$USER -R /home/"$USER" /tmp \
     && echo "ubuntu ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/90-ubuntu \
     && chmod 600 /home/"$USER"/.ssh/config \
-    && chown -R $USER:$USER /home/"$USER"/.ssh
+    && chown -R $USER:$USER /home/"$USER"/.ssh \
+    && chmod +x /usr/local/bin/* \
+    && echo "PATH=\"${PATH}\"" > /etc/environment
 {% endmacro %}
 
 {%- macro clean_up() -%}
@@ -90,7 +92,7 @@ RUN ${INTERPRETER} -m pip install \
     {%- else %}
       {{ package.name }} \
     {% endif %}
-  {%- endfor -%}
+  {%- endfor %}
     && ${INTERPRETER} -m pip cache purge
 {% endmacro %}
 
