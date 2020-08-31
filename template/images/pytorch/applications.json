@@ -1,6 +1,0 @@
-{
-    "applications": [
-        "jupyter-notebook",
-        "ssh-server"
-    ]
-}

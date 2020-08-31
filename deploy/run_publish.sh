@@ -9,8 +9,8 @@ echo "files_to_push: ${files_to_push}"
 
 . "${repo_path}/deploy/functions/publish.sh"
 
-for image_path in $( cut -d'/' -f1,2,3 <<< "${files_to_push}" | uniq ); do
-  if [[ ${image_path} = template/images/* ]]; then
+for image_path in $( cut -d'/' -f1,2 <<< "${files_to_push}" | uniq ); do
+  if [[ ${image_path} = images/* ]]; then
     run_publish_image "${image_path}"
   fi
 done
