@@ -1,2 +1,11 @@
 #!/usr/bin/env bash
 
+files_to_commit="$(git diff --name-only)"
+echo "files_to_commit: ${files_to_commit}"
+
+for image_path in $( cut -d'/' -f1,2 <<< "${files_to_commit}" | uniq ); do
+  if [[ $image_path = images/* ]]; then
+    image_full_path="$(git rev-parse --show-toplevel)"/"${image_path}"
+    j2 -f json ${image_full_path}/dockerfile.j2 ${image_full_path}/metadata.json -o ${image_full_path}/Dockerfile
+  fi
+done
