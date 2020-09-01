@@ -2,7 +2,7 @@
 
 origin_commit="$(git rev-parse --short HEAD)"
 echo "origin_commit: ${origin_commit}"
-files_to_push="$(git diff --name-only ${origin_commit})"
+files_to_commit="$(git diff --name-only ${origin_commit}^)"
 echo "files_to_commit: ${files_to_commit}"
 
 for image_path in $( cut -d'/' -f1,2 <<< "${files_to_commit}" | uniq ); do
