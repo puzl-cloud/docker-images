@@ -93,7 +93,7 @@ RUN ${INTERPRETER} -m pip install \
       {%- else %}
         {{ package.name }} \
       {% endif %}
-    {% endif %}
+    {%- endif %}
   {%- endfor %}
     && ${INTERPRETER} -m pip cache purge
 {% endmacro %}
