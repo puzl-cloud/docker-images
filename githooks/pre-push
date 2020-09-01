@@ -10,6 +10,6 @@ for image_path in $( cut -d'/' -f1,2 <<< "${files_to_commit}" | uniq ); do
     image_full_path="$(git rev-parse --show-toplevel)"/"${image_path}"
     j2 -f json ${image_full_path}/dockerfile.j2 ${image_full_path}/metadata.json -o ${image_full_path}/Dockerfile
     git add ${image_full_path}/Dockerfile
-    git commit -m "Update Dockerfile in ${image_full_path}" --allow-empty
+    git commit -m "Update Dockerfile in ${image_path}" --allow-empty
   fi
 done
