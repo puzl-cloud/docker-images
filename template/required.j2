@@ -87,10 +87,12 @@ RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 {%- macro install_pip_package(packages) -%}
 RUN ${INTERPRETER} -m pip install \
   {%- for package in packages -%}
-    {% if package.version|length %}
-      {{ package.name }}=={{ package.version }} \
-    {%- else %}
-      {{ package.name }} \
+    {% if package.type == "pip" %}
+      {% if package.version|length %}
+        {{ package.name }}=={{ package.version }} \
+      {%- else %}
+        {{ package.name }} \
+      {% endif %}
     {% endif %}
   {%- endfor %}
     && ${INTERPRETER} -m pip cache purge
