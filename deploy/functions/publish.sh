@@ -74,7 +74,7 @@ run_publish_image() {
   local interpreter_version
   local image
   local HASURA_QUERY
-  local applications
+  local packages
 
   j2 -f json ${image_full_path}/dockerfile.j2 ${image_full_path}/metadata.json -o ./Dockerfile
   cat test/test.sh ${image_full_path}/test.sh >> test/run_test.sh
@@ -86,7 +86,7 @@ run_publish_image() {
     interpreter=$(echo ${interpreter} | sed 's/[^a-zA-Z]//g')
     interpreter_version=$(echo "${interpreter}" | sed 's/[^0-9.]*\([0-9.]*\).*/\1/')
     image="${image_repo}/${image_name}:${image_tag}-${interpreter}"
-    applications="$(cat ${image_full_path}/applications.json)"
+    packages="$(jq '. | with_entries(select(.key|contains("packages")))' ${image_full_path}/metadata.json)"
     docker build \
       --build-arg INTERPRETER=${interpreter} \
       --build-arg INTERPRETER_VERSION=${interpreter_version} \
@@ -99,7 +99,7 @@ run_publish_image() {
                                     tag="${image_tag}-${interpreter}" \
                                     interpreter="${interpreter}" \
                                     interpreterVersion="${interpreter_version}" \
-                                    metadata="${applications}")")
+                                    metadata="${packages}")")
   
     hook::update_hasura "${HASURA_QUERY}"
     push_readme "${image_full_path}" "${image_repo}/${image_name}"
