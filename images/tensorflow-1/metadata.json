@@ -1,6 +1,6 @@
 {
     "sourceImage":"tensorflow",
-    "sourceTag":"tensorflow:1.15.2-gpu-py3-jupyter",
+    "sourceTag":"1.15.2-gpu-py3-jupyter",
     "interpreters": [
         "python3.6",
         "python3.7",
