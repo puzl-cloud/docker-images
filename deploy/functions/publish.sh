@@ -76,6 +76,7 @@ run_publish_image() {
         --build-arg INTERPRETER_VERSION=${interpreter_version} \
         -t ${image} .
     docker push ${image}
+    docker rmi ${image}
 
     HASURA_QUERY=$(jo query="${HASURA_UPSERT_DOCKER_IMAGE}" \
                     variables="$(jo repo="${image_repo}/${image_name}" \

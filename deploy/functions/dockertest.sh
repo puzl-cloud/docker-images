@@ -30,8 +30,11 @@ run_docker_image_test() {
   if ! docker-compose -f test/docker-compose.test.yml up --no-build; then
     printf '\033[0;31m\U0001F6AB docker image test %s failed.\n\n\033[0m' "$image_name-${interpreter}"
     test_failed=1
+    docker-compose -f test/docker-compose.test.yml down
     break
   fi
+
+  docker-compose -f test/docker-compose.test.yml down
 
   done
 
