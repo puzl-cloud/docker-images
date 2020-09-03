@@ -21,7 +21,7 @@ jobs:
   publish-dev:
     runs-on: [self-hosted, docker]
     steps:
-      - uses: actions/checkout@v2
+      - uses: puzl-ee/checkout@v2
 
       - name: Publish to dev
         env:
