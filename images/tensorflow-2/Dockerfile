@@ -1,4 +1,4 @@
-FROM tensorflow:2.3.0-gpu-py3-jupyter
+FROM tensorflow/tensorflow:2.3.0-gpu-py3-jupyter
 
 ARG INTERPRETER
 

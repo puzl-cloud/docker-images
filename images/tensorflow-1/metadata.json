@@ -1,5 +1,5 @@
 {
-    "sourceImage":"tensorflow",
+    "sourceImage":"tensorflow/tensorflow",
     "sourceTag":"1.15.2-gpu-py3-jupyter",
     "interpreters": [
         "python3.6",
