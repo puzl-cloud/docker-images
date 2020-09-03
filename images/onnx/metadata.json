@@ -17,8 +17,8 @@
             "type": "pip"
         },
         {
-            "name": "caffe2",
-            "type": "os"
+            "name": "onnx",
+            "type": "pip"
         },
         {
             "name": "rclone",
