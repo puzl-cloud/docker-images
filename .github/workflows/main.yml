@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  tests:
+    # The type of runner that the job will run on
+    runs-on: [self-hosted, docker]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Run test
+        run: bash deploy/run_tests.sh
+  
+  publish-dev:
+    runs-on: [self-hosted, docker]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Publish to dev
+        env:
+          HASURA_ENDPOINT: ${{ secrets.HASURA_ENDPOINT_DEV }}
+          HASURA_API_KEY: ${{ secrets.HASURA_API_KEY_DEV }}
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: bash deploy/run_publish.sh
+        
