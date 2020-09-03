@@ -41,13 +41,6 @@ hook::update_hasura() {
   done
 }
 
-push_readme() {
-  local -r image_full_path="${1}"
-  local -r image="${2}"
-  
-  docker-pushrm ${image} -f ${image_full_path}/README.md
-}
-
 run_publish_image() {
   local -r image_path="${1:?missing_chart_name}"
   local -r image_name="$(echo ${image_path} | sed 's/.*\///g')"
@@ -88,7 +81,6 @@ run_publish_image() {
     HASURA_QUERY=$(echo ${HASURA_QUERY} | jq --arg interpreterVersion "${interpreter_version}" '.variables += {"interpreterVersion":$interpreterVersion}')
 
     hook::update_hasura "${HASURA_QUERY}"
-  done
 
-  push_readme "${image_full_path}" "${image_repo}/${image_name}"
+  done
 }
