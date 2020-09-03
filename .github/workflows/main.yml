@@ -25,6 +25,9 @@ jobs:
     runs-on: [self-hosted, docker]
     steps:
       - uses: puzl-ee/checkout@v2
+        with:
+          clean: false
+          fetch-depth: 0
 
       - name: Publish to dev
         env:
