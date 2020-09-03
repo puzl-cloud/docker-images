@@ -27,7 +27,7 @@ hook::update_hasura() {
   i=0
 
   sleep $[ ( $RANDOM % 5 )  + 1 ]s
-  RESPONSE=$(hook::curl "${QUERY}")
+  RESPONSE=$(hook::hasura_curl "${QUERY}")
 
   echo "RESPONSE:${RESPONSE}"
 
@@ -44,25 +44,8 @@ hook::update_hasura() {
 push_readme() {
   local -r image_full_path="${1}"
   local -r image="${2}"
-  local -r token=$(curl -s -X POST \
-    -H "Content-Type: application/json" \
-    -d '{"username": "'"$DOCKER_USERNAME"'", "password": "'"$DOCKER_PASSWORD"'"}' \
-    https://hub.docker.com/v2/users/login/ | jq -r .token)
-
-  local code=$(jq -n --arg msg "$(<${image_full_path}/README.md)" \
-    '{"registry":"registry-1.docker.io","full_description": $msg }' | \
-        curl -s -o /dev/null -L -w "%{http_code}" \
-           https://cloud.docker.com/v2/repositories/"${image}"/ \
-           -d @- -X PATCH \
-           -H "Content-Type: application/json" \
-           -H "Authorization: JWT ${token}")
-
-  if [[ "${code}" = "200" ]]; then
-    printf "Successfully pushed README to Docker Hub"
-  else
-    printf "Unable to push README to Docker Hub, response code: %s\n" "${code}"
-    exit 1
-  fi
+  
+  docker-pushrm ${image} -f ${image_full_path}/README.md
 }
 
 run_publish_image() {
@@ -83,25 +66,28 @@ run_publish_image() {
   echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
 
   for interpreter in $(jq -r '.interpreters[]' ${image_full_path}/metadata.json); do
-    interpreter=$(echo ${interpreter} | sed 's/[^a-zA-Z]//g')
+    echo "interpreter: ${interpreter}"
     interpreter_version=$(echo "${interpreter}" | sed 's/[^0-9.]*\([0-9.]*\).*/\1/')
     image="${image_repo}/${image_name}:${image_tag}-${interpreter}"
     packages="$(jq '. | with_entries(select(.key|contains("packages")))' ${image_full_path}/metadata.json)"
-    docker build \
-      --build-arg INTERPRETER=${interpreter} \
-      --build-arg INTERPRETER_VERSION=${interpreter_version} \
-      -t ${image} . 
-    dockker push ${image}
+    docker inspect ${image} > /dev/null 2>&1 || \
+      docker build \
+        --build-arg INTERPRETER=${interpreter} \
+        --build-arg INTERPRETER_VERSION=${interpreter_version} \
+        -t ${image} .
+    docker push ${image}
 
     HASURA_QUERY=$(jo query="${HASURA_UPSERT_DOCKER_IMAGE}" \
                     variables="$(jo repo="${image_repo}/${image_name}" \
                                     name="${image_name}" \
                                     tag="${image_tag}-${interpreter}" \
-                                    interpreter="${interpreter}" \
-                                    interpreterVersion="${interpreter_version}" \
+                                    interpreter="${interpreter/${interpreter_version}}" \
                                     metadata="${packages}")")
-  
+
+    HASURA_QUERY=$(echo ${HASURA_QUERY} | jq --arg interpreterVersion "${interpreter_version}" '.variables += {"interpreterVersion":$interpreterVersion}')
+
     hook::update_hasura "${HASURA_QUERY}"
-    push_readme "${image_full_path}" "${image_repo}/${image_name}"
   done
+
+  push_readme "${image_full_path}" "${image_repo}/${image_name}"
 }
