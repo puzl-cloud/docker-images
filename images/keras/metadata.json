@@ -1,0 +1,40 @@
+{
+    "sourceImage":"tensorflow/tensorflow",
+    "sourceTag":"2.3.0-gpu",
+    "interpreters": [
+        "python3.6",
+        "python3.7",
+        "python3.8"
+    ],
+    "packages": [
+        {
+            "name": "tensorflow-gpu",
+            "version": "2.3.0",
+            "type": "pip"
+        },
+        {
+            "name": "keras",
+            "version": "2.4.3",
+            "type": "pip"
+        },
+        {
+            "name": "rclone",
+            "type": "os"
+        },
+        {
+            "name": "conda",
+            "type": "os"
+        },
+        {
+            "name": "openssh-server",
+            "type": "os"
+        },
+        {
+            "name": "rsync",
+            "type": "os"
+        }
+    ],
+    "image": {
+        "tag": "2.3.0-cuda10.1-cudnn7-jupyter"
+    }
+}
