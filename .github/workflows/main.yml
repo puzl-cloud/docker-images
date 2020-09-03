@@ -14,11 +14,14 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: puzl-ee/checkout@v2
-      
+        with:
+          clean: false
+          fetch-depth: 0
       - name: Run test
         run: bash deploy/run_tests.sh
   
   publish-dev:
+    needs: [tests]
     runs-on: [self-hosted, docker]
     steps:
       - uses: puzl-ee/checkout@v2
