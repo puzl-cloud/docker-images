@@ -92,7 +92,7 @@ RUN ${INTERPRETER} -m pip install \
         {{ package.name }}=={{ package.version }} \
       {%- else %}
         {{ package.name }} \
-      {%- endif %}
+      {% endif %}
     {%- endif %}
   {%- endfor %}
     && ${INTERPRETER} -m pip cache purge
