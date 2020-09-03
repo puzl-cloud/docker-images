@@ -1,0 +1,39 @@
+{
+    "sourceImage":"nvidia/cuda",
+    "sourceTag":"10.1-cudnn7-devel-ubuntu18.04",
+    "interpreters": [
+        "python3.6",
+        "python3.7"
+    ],
+    "packages": [
+        {
+            "name": "torch",
+            "version": "1.6.0",
+            "type": "pip"
+        },
+        {
+            "name": "torchvision",
+            "version": "0.7.0",
+            "type": "pip"
+        },
+        {
+            "name": "rclone",
+            "type": "os"
+        },
+        {
+            "name": "conda",
+            "type": "os"
+        },
+        {
+            "name": "openssh-server",
+            "type": "os"
+        },
+        {
+            "name": "rsync",
+            "type": "os"
+        }
+    ],
+    "image": {
+        "tag": "1.6-cuda10.1-cudnn7-jupyter"
+    }
+}
