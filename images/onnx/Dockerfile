@@ -86,11 +86,8 @@ RUN rm -rf /usr/local/bin/pip3 \
 
 RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 
-RUN ${INTERPRETER} -m pip install \
-        torch==1.6.0 \
-        torchvision==0.7.0 \
+RUN ${INTERPRETER} -m pip install \torch==1.6.0 \torchvision==0.7.0 \
         onnx \
-      
     && ${INTERPRETER} -m pip cache purge
 
 RUN curl https://rclone.org/install.sh -o ~/install.sh \
