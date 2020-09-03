@@ -88,7 +88,7 @@ RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 RUN ${INTERPRETER} -m pip install \
   {%- for package in packages -%}
     {%- if package.type == "pip" -%}
-      {% if package['version']|length %}
+      {% if package.version is defined %}
         {{ package.name }}=={{ package.version }} \
       {%- else %}
         {{ package.name }} \
