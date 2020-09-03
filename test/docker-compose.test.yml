@@ -4,3 +4,4 @@ services:
     build:
       context: ..
     command: run_test.sh
+    image: puzlcloud/caffe2:1.6-cuda10.1-cudnn7-jupyter-python3.6
