@@ -3,7 +3,8 @@
     "sourceTag":"10.1-cudnn7-devel-ubuntu18.04",
     "interpreters": [
         "python3.6",
-        "python3.7"
+        "python3.7",
+        "python3.8"
     ],
     "packages": [
         {
@@ -19,6 +20,10 @@
         {
             "name": "fastai",
             "version": "2.0.8",
+            "type": "pip"
+        },
+        {
+            "name": "jupyterlab",
             "type": "pip"
         },
         {
@@ -39,6 +44,9 @@
         }
     ],
     "image": {
-        "tag": "1.6-cuda10.1-cudnn7-jupyter"
-    }
+        "tag": "2.0.8-cuda10.1-cudnn7-jupyter"
+    },
+    "iconUrl": "https://static.puzl.ee/images/docker-images/fast-ai/fastai-logo.svg",
+    "description": "Fastai framework with various python runtime.",
+    "enable": true
 }

@@ -89,6 +89,7 @@ RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 RUN ${INTERPRETER} -m pip install \
         tensorflow-gpu==2.3.0 \
         keras==2.4.3 \
+        jupyterlab \
     && ${INTERPRETER} -m pip cache purge
 
 RUN curl https://rclone.org/install.sh -o ~/install.sh \

@@ -18,6 +18,10 @@
             "type": "pip"
         },
         {
+            "name": "jupyterlab",
+            "type": "pip"
+        },
+        {
             "name": "rclone",
             "type": "os"
         },
@@ -35,6 +39,9 @@
         }
     ],
     "image": {
-        "tag": "2.3.0-cuda10.1-cudnn7-jupyter"
-    }
+        "tag": "2.4.3-cuda10.1-cudnn7-jupyter"
+    },
+    "iconUrl": "https://static.puzl.ee/images/docker-images/keras/keras-text.svg",
+    "description": "Keras framework with various python runtime.",
+    "enable": true
 }

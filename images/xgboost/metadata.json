@@ -18,6 +18,10 @@
             "type": "pip"
         },
         {
+            "name": "jupyterlab",
+            "type": "pip"
+        },
+        {
             "name": "rclone",
             "type": "os"
         },
@@ -35,6 +39,8 @@
         }
     ],
     "image": {
-        "tag": "2.3.0-cuda10.1-cudnn7-jupyter"
-    }
+        "tag": "1.2.0-cuda10.1-cudnn7-jupyter"
+    },
+    "description": "Xgboost framework with various python runtime.",
+    "enable": true
 }

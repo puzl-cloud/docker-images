@@ -47,6 +47,9 @@ run_publish_image() {
   local -r image_full_path="$(git rev-parse --show-toplevel)"/"${image_path}"
   local -r image_repo="$(jq -r '.repository.name' globals/main.json)"
   local image_tag="$(jq -r '.image.tag' ${image_full_path}/metadata.json)"
+  local icon_url="$(jq -r '.image.iconUrl' ${image_full_path}/metadata.json)"
+  local description="$(jq -r '.image.description' ${image_full_path}/metadata.json)"
+  local enable_img="$(jq -r '.image.enable' ${image_full_path}/metadata.json)"
   local interpreter_version
   local image
   local HASURA_QUERY
@@ -79,7 +82,15 @@ run_publish_image() {
                                     metadata="${packages}")")
 
     HASURA_QUERY=$(echo ${HASURA_QUERY} | jq --arg interpreterVersion "${interpreter_version}" '.variables += {"interpreterVersion":$interpreterVersion}')
-
+    if [[ "${icon_url}" != "" ]];
+      HASURA_QUERY=$(echo ${HASURA_QUERY} | jq --arg icon "${icon_url}" '.variables += {"icon":$icon}')
+    fi
+    if [[ "${description}" != "" ]];
+      HASURA_QUERY=$(echo ${HASURA_QUERY} | jq --arg description "${description}" '.variables += {"description":$description}')
+    fi
+    if [[ "${enable_img}" != "" ]];
+      HASURA_QUERY=$(echo ${HASURA_QUERY} | jq --arg enable_img "${enable_img}" '.variables += {"enable":$enable_img}')
+    fi
     hook::update_hasura "${HASURA_QUERY}"
 
   done

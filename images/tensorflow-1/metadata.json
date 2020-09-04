@@ -12,6 +12,10 @@
             "type": "pip"
         },
         {
+            "name": "jupyterlab",
+            "type": "pip"
+        },
+        {
             "name": "rclone",
             "type": "os"
         },
@@ -30,5 +34,8 @@
     ],
     "image": {
         "tag": "1.15.3-cuda10.1-cudnn7-jupyter"
-    }
+    },
+    "iconUrl": "https://static.puzl.ee/images/docker-images/tensorflow/TF_FullColor_Horizontal.svg",
+    "description": "Tensorflow 1 framework with various python runtime.",
+    "enable": true
 }

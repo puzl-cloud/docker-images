@@ -4,6 +4,9 @@ HASURA_UPSERT_DOCKER_IMAGE='mutation upsertDockerImage(
   $tag: String!,
   $interpreter: String,
   $interpreterVersion: String,
+  $icon: String,
+  $description: String,
+  $enable: Boolean,
   $metadata: jsonb!
 ){
   insert_resources_dockerImages(
@@ -13,6 +16,9 @@ HASURA_UPSERT_DOCKER_IMAGE='mutation upsertDockerImage(
       tag: $tag,
       interpreter: $interpreter,
       interpreterVersion: $interpreterVersion,
+      icon: $icon,
+      description: $description,
+      enable: $enable,
       metadata: $metadata
     },
     on_conflict: {
