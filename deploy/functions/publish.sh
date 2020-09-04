@@ -82,13 +82,13 @@ run_publish_image() {
                                     metadata="${packages}")")
 
     HASURA_QUERY=$(echo ${HASURA_QUERY} | jq --arg interpreterVersion "${interpreter_version}" '.variables += {"interpreterVersion":$interpreterVersion}')
-    if [[ "${icon_url}" != "" ]];
+    if [[ "${icon_url}" != "" ]]; then
       HASURA_QUERY=$(echo ${HASURA_QUERY} | jq --arg icon "${icon_url}" '.variables += {"icon":$icon}')
     fi
-    if [[ "${description}" != "" ]];
+    if [[ "${description}" != "" ]]; then
       HASURA_QUERY=$(echo ${HASURA_QUERY} | jq --arg description "${description}" '.variables += {"description":$description}')
     fi
-    if [[ "${enable_img}" != "" ]];
+    if [[ "${enable_img}" != "" ]]; then
       HASURA_QUERY=$(echo ${HASURA_QUERY} | jq --arg enable_img "${enable_img}" '.variables += {"enable":$enable_img}')
     fi
     hook::update_hasura "${HASURA_QUERY}"
