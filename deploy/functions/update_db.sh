@@ -83,7 +83,7 @@ update_db() {
         interpreter_version=$(echo "${interpreter}" | sed 's/[^0-9.]*\([0-9.]*\).*/\1/')
         tag="${image_tag}-${interpreter}"
         IMAGE_OBJECT=$(echo ${IMAGE_OBJECT} | jq --arg tag "${tag}" '. += {"tag":$tag}')
-        IMAGE_OBJECT=$(echo ${IMAGE_OBJECT} | jq --arg interpreter "${interpreter}" '. += {"interpreter":$interpreter}')
+        IMAGE_OBJECT=$(echo ${IMAGE_OBJECT} | jq --arg interpreter "${interpreter/${interpreter_version}}" '. += {"interpreter":$interpreter}')
         IMAGE_OBJECT=$(echo ${IMAGE_OBJECT} | jq --arg interpreterVersion "${interpreter_version}" '. += {"interpreterVersion":$interpreterVersion}')
         if docker_tag_exists "${repo}" "${tag}"; then
           HASURA_QUERY=$(echo ${HASURA_QUERY} | jq ".variables.images[.variables.images | length] |= . + ${IMAGE_OBJECT}")
