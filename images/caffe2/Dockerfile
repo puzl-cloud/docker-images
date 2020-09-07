@@ -17,7 +17,6 @@ SHELL ["/bin/bash", "-c"]
 RUN apt-get update \
     && apt-get install -y software-properties-common \
     && add-apt-repository ppa:git-core/ppa -y \
-    && add-apt-repository ppa:deadsnakes/ppa -y \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
          build-essential \
@@ -34,6 +33,12 @@ RUN apt-get update \
          vim \
          sudo \
          unzip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN add-apt-repository ppa:deadsnakes/ppa -y \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
          ${INTERPRETER} \
          ${INTERPRETER}-distutils \
     && apt-get clean \
@@ -52,7 +57,7 @@ COPY template/configs/sshd_config /home/"$USER"/.ssh/sshd_config
 COPY template/configs/config /home/"$USER"/.ssh/config
 COPY template/configs/bash.bashrc /etc/bash.bashrc
 COPY template/configs/requirements.txt /tmp/requirements.txt
-COPY test/run_test.sh /usr/local/bin/run_test.sh
+COPY globals/run_test.sh /usr/local/bin/run_test.sh
 
 RUN rm -f /etc/ssh/ssh_host_*key* \
     && mkdir -p \

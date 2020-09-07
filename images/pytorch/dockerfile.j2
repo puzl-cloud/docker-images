@@ -9,7 +9,7 @@
 {{ docker.label() }}
 {{ env.general() }}
 {{ docker.shell('["/bin/bash", "-c"]') }}
-{{ required.install_pakage() }}
+{{ required.install_main_pakage() }}
 {{ required.install_python() }}
 {{ required.add_user() }}
 {{ configs.general() }}
