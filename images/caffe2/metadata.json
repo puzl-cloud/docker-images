@@ -43,7 +43,7 @@
         }
     ],
     "image": {
-        "tag": "1.6-cuda10.1-cudnn7-jupyter"
+        "tagPrefix": "1.6-cuda10.1-cudnn7-jupyter"
     },
     "iconUrl": "https://static.puzl.ee/images/docker-images/caffe2/caffe2.svg",
     "description": "Caffe2 framework with various python runtime.",

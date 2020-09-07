@@ -34,7 +34,7 @@
         }
     ],
     "image": {
-        "tag": "2.3.0-cuda10.1-cudnn7-jupyter"
+        "tagPrefix": "2.3.0-cuda10.1-cudnn7-jupyter"
     },
     "iconUrl": "https://static.puzl.ee/images/docker-images/tensorflow/TF_FullColor_Horizontal.svg",
     "description": "Tensorflow 2 framework with various python runtime.",

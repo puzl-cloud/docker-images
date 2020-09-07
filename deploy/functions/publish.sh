@@ -46,7 +46,7 @@ run_publish_image() {
   local -r image_name="$(echo ${image_path} | sed 's/.*\///g')"
   local -r image_full_path="$(git rev-parse --show-toplevel)"/"${image_path}"
   local -r image_repo="$(jq -r '.repository.name' globals/main.json)"
-  local image_tag="$(jq -r '.image.tag' ${image_full_path}/metadata.json)"
+  local image_tag="$(jq -r '.image.tagPrefix' ${image_full_path}/metadata.json)"
   local icon_url="$(jq -r '.iconUrl' ${image_full_path}/metadata.json)"
   local description="$(jq -r '.description' ${image_full_path}/metadata.json)"
   local enable_img="$(jq -r '.enable' ${image_full_path}/metadata.json)"

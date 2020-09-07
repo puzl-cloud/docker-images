@@ -44,7 +44,7 @@
         }
     ],
     "image": {
-        "tag": "2.0.8-cuda10.1-cudnn7-jupyter"
+        "tagPrefix": "2.0.8-cuda10.1-cudnn7-jupyter"
     },
     "iconUrl": "https://static.puzl.ee/images/docker-images/fast-ai/fastai-logo.svg",
     "description": "Fastai framework with various python runtime.",
