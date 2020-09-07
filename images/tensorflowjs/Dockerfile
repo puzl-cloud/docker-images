@@ -55,9 +55,11 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl --silent --location https://deb.nodesource.com/setup_12.x | bash - \
+RUN curl -o ~/nodejs.sh --silent --location https://deb.nodesource.com/setup_12.x \
+    && bash ~/nodejs.sh \
     && apt-get install --yes nodejs \
-    && npm install -g yarn
+    && npm install -g yarn \
+    && rm -f ~/nodejs.sh
 
 RUN addgroup --gid "$GID" "$USER" \
     && adduser \
