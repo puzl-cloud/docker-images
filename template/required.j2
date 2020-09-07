@@ -1,8 +1,7 @@
-{%- macro install_pakage() -%}
+{%- macro install_main_pakage() -%}
 RUN apt-get update \
     && apt-get install -y software-properties-common \
     && add-apt-repository ppa:git-core/ppa -y \
-    && add-apt-repository ppa:deadsnakes/ppa -y \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
          build-essential \
@@ -19,6 +18,14 @@ RUN apt-get update \
          vim \
          sudo \
          unzip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+{% endmacro %}
+
+{%- macro install_python() -%}
+RUN add-apt-repository ppa:deadsnakes/ppa -y \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
          ${INTERPRETER} \
          ${INTERPRETER}-distutils \
     && apt-get clean \

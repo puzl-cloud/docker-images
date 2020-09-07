@@ -1,0 +1,24 @@
+{
+    "sourceImage": "ubuntu",
+    "sourceTag": "18.04",
+    "packages": [
+        {
+            "name": "rclone",
+            "type": "os"
+        },
+        {
+            "name": "openssh-server",
+            "type": "os"
+        },
+        {
+            "name": "rsync",
+            "type": "os"
+        }
+    ],
+    "image": {
+        "tagPrefix": "latest"
+    },
+    "description": "Provides non-root ssh access to container. Used by puzl.ee Kubernetes cloud provider.",
+    "enable": true,
+    "skipTests": false
+}
