@@ -20,7 +20,7 @@ jobs:
       - name: Run test
         run: bash deploy/run_tests.sh
   
-  publish-dev:
+  publish-image-dev:
     needs: [tests]
     runs-on: [self-hosted, docker]
     steps:
@@ -28,12 +28,23 @@ jobs:
         with:
           clean: false
           fetch-depth: 0
-
       - name: Publish to dev
         env:
-          HASURA_ENDPOINT: ${{ secrets.HASURA_ENDPOINT_DEV }}
-          HASURA_API_KEY: ${{ secrets.HASURA_API_KEY_DEV }}
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: bash deploy/run_publish.sh
+
+  update-db-dev:
+    needs: [tests, publish-image-dev]
+    runs-on: [self-hosted, docker]
+    steps:
+      - uses: puzl-ee/checkout@v2
+        with:
+          clean: false
+          fetch-depth: 0
+      - name: Update db
+        env:
+          HASURA_ENDPOINT: ${{ secrets.HASURA_ENDPOINT_DEV }}
+          HASURA_API_KEY: ${{ secrets.HASURA_API_KEY_DEV }}
+        run: bash deploy/run_update_db.sh
         

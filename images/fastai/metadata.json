@@ -49,5 +49,5 @@
     "iconUrl": "https://static.puzl.ee/images/docker-images/fast-ai/fastai-logo.svg",
     "description": "Fastai framework with various python runtime.",
     "enable": true,
-    "skipTests": true
+    "skipTests": false
 }

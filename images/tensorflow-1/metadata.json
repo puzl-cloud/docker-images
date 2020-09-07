@@ -38,5 +38,5 @@
     "iconUrl": "https://static.puzl.ee/images/docker-images/tensorflow/TF_FullColor_Horizontal.svg",
     "description": "Tensorflow 1 framework with various python runtime.",
     "enable": true,
-    "skipTests": true
+    "skipTests": false
 }

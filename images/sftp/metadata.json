@@ -19,6 +19,6 @@
         "tagPrefix": "latest"
     },
     "description": "Provides non-root ssh access to container. Used by puzl.ee Kubernetes cloud provider.",
-    "enable": true,
+    "enable": false,
     "skipTests": false
 }

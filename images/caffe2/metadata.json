@@ -48,5 +48,5 @@
     "iconUrl": "https://static.puzl.ee/images/docker-images/caffe2/caffe2.svg",
     "description": "Caffe2 framework with various python runtime.",
     "enable": true,
-    "skipTests": true
+    "skipTests": false
 }

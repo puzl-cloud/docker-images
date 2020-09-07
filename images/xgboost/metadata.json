@@ -43,5 +43,5 @@
     },
     "description": "Xgboost framework with various python runtime.",
     "enable": true,
-    "skipTests": true
+    "skipTests": false
 }
