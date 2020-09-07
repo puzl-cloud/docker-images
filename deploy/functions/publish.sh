@@ -56,7 +56,6 @@ run_publish_image() {
   local packages
 
   j2 -f json ${image_full_path}/dockerfile.j2 ${image_full_path}/metadata.json -o ./Dockerfile
-  cat test/test.sh ${image_full_path}/test.sh >> test/run_test.sh
 
   # Login into Docker repository
   echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
@@ -82,13 +81,13 @@ run_publish_image() {
                                     metadata="${packages}")")
 
     HASURA_QUERY=$(echo ${HASURA_QUERY} | jq --arg interpreterVersion "${interpreter_version}" '.variables += {"interpreterVersion":$interpreterVersion}')
-    if [[ "${icon_url}" != "" ]]; then
+    if [[ "${icon_url}" != "null" ]]; then
       HASURA_QUERY=$(echo ${HASURA_QUERY} | jq --arg icon "${icon_url}" '.variables += {"icon":$icon}')
     fi
-    if [[ "${description}" != "" ]]; then
+    if [[ "${description}" != "null" ]]; then
       HASURA_QUERY=$(echo ${HASURA_QUERY} | jq --arg description "${description}" '.variables += {"description":$description}')
     fi
-    if [[ "${enable_img}" != "" ]]; then
+    if [[ "${enable_img}" != "null" ]]; then
       HASURA_QUERY=$(echo ${HASURA_QUERY} | jq --arg enable_img "${enable_img}" '.variables += {"enable":$enable_img}')
     fi
     hook::update_hasura "${HASURA_QUERY}"
