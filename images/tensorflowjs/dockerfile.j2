@@ -1,0 +1,24 @@
+{%- import "template/dockerfile.j2" as docker -%}
+{%- import "template/environment.j2" as env -%}
+{%- import "template/configs.j2" as configs -%}
+{%- import "template/required.j2" as required -%}
+
+{{ docker.fromOfficial(sourceImage, sourceTag) }}
+{{ docker.arg("CUDA=10.0") }}
+{{ docker.arg("CUDNN=7.6.4.38-1") }}
+{{ docker.label() }}
+{{ env.general() }}
+{{ docker.shell('["/bin/bash", "-c"]') }}
+{{ required.install_main_pakage() }}
+{{ required.install_cuda_pakage() }}
+{{ required.install_node() }}
+{{ required.add_user() }}
+{{ configs.general() }}
+{{ required.configure() }}
+{{ required.install_yarn_package(packages) }}
+{{ required.install_rclone() }}
+{{ required.clean_up() }}
+{{ docker.expose(2222) }}
+{{ docker.workdir("/tmp") }}
+{{ docker.user("$UID") }}
+{{ docker.cmd('["/bin/sh", "-c", "exit 0"]') }}

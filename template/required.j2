@@ -32,6 +32,12 @@ RUN add-apt-repository ppa:deadsnakes/ppa -y \
     && rm -rf /var/lib/apt/lists/*
 {% endmacro %}
 
+{%- macro install_node() -%}
+RUN curl --silent --location https://deb.nodesource.com/setup_12.x | bash - \
+    && apt-get install --yes nodejs \
+    && npm install -g yarn
+{% endmacro %}
+
 {%- macro add_user() -%}
 RUN addgroup --gid "$GID" "$USER" \
     && adduser \
@@ -105,9 +111,44 @@ RUN ${INTERPRETER} -m pip install \
     && ${INTERPRETER} -m pip cache purge
 {% endmacro %}
 
+{%- macro install_yarn_package(packages) -%}
+RUN yarn add \
+  {%- for package in packages -%}
+    {%- if package.type == "yarn" -%}
+      {% if package.version is defined %}
+        {{ package.name }}@{{ package.version }} \
+      {%- else %}
+        {{ package.name }} \
+      {%- endif %}
+    {%- endif %}
+  {%- endfor %}
+    && yarn cache clean
+{% endmacro %}
+
 {%- macro install_rclone() -%}
 RUN curl https://rclone.org/install.sh -o ~/install.sh \
     && chmod +x ~/install.sh \
     && ~/install.sh \
     && rm ~/install.sh
+{% endmacro %}
+
+{%- macro install_cuda_pakage() -%}
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+         cuda-command-line-tools-${CUDA/./-} \
+         # There appears to be a regression in libcublas10=10.2.2.89-1 which
+         # prevents cublas from initializing in TF. See
+         # https://github.com/tensorflow/tensorflow/issues/9489#issuecomment-562394257
+         libcublas10=10.2.1.243-1 \ 
+         cuda-nvrtc-${CUDA/./-} \
+         cuda-cufft-${CUDA/./-} \
+         cuda-curand-${CUDA/./-} \
+         cuda-cusolver-${CUDA/./-} \
+         cuda-cusparse-${CUDA/./-} \
+         libcudnn7=${CUDNN}+cuda${CUDA} \
+         libnvinfer6=6.0.1-1+cuda${CUDA} \
+         libnvinfer-dev=6.0.1-1+cuda${CUDA} \
+         libnvinfer-plugin6=6.0.1-1+cuda${CUDA} \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 {% endmacro %}

@@ -1,0 +1,38 @@
+{
+    "sourceImage":"nvidia/cuda",
+    "sourceTag":"10.0-base-ubuntu18.04",
+    "interpreters": [
+        "nodejs12"
+    ],
+    "packages": [
+        {
+            "name": "@tensorflow/tfjs",
+            "version": "2.0.1",
+            "type": "yarn"
+        },
+        {
+            "name": "@tensorflow/tfjs-node-gpu",
+            "version": "2.0.1",
+            "type": "yarn"
+        },
+        {
+            "name": "rclone",
+            "type": "os"
+        },
+        {
+            "name": "openssh-server",
+            "type": "os"
+        },
+        {
+            "name": "rsync",
+            "type": "os"
+        }
+    ],
+    "image": {
+        "tagPrefix": "2.0.1-cuda10.0-cudnn7"
+    },
+    "iconUrl": "https://static.puzl.ee/images/docker-images/tensorflow/TF_FullColor_Horizontal.svg",
+    "description": "Tensorflow JS",
+    "enable": true,
+    "skipTests": false
+}
