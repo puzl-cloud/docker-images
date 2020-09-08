@@ -161,8 +161,9 @@ RUN apt-get update \
 {% endmacro %}
 
 {%- macro install_h2o4gpu() -%}
-RUN curl https://s3.amazonaws.com/h2o-release/h2o4gpu/releases/stable/ai/h2o/h2o4gpu/0.4-cuda10/rel-0.4.0/h2o4gpu-0.4.0-cp36-cp36m-linux_x86_64.whl -o ~/h2o4gpu.whl \
+RUN curl https://s3.amazonaws.com/h2o-release/h2o4gpu/releases/stable/ai/h2o/h2o4gpu/0.4-cuda10/rel-0.4.0/h2o4gpu-0.4.0-cp36-cp36m-linux_x86_64.whl \
+      -o ~/h2o4gpu-0.4.0-cp36-cp36m-linux_x86_64.whl \
     && ${INTERPRETER} -m pip install \
-         ~/h2o4gpu.whl \
-    && rm ~/h2o4gpu.whl
+         ~/h2o4gpu-0.4.0-cp36-cp36m-linux_x86_64.whl \
+    && rm ~/h2o4gpu-0.4.0-cp36-cp36m-linux_x86_64.whl
 {% endmacro %}
