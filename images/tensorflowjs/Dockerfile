@@ -48,7 +48,12 @@ RUN apt-get update \
          cuda-curand-${CUDA/./-} \
          cuda-cusolver-${CUDA/./-} \
          cuda-cusparse-${CUDA/./-} \
-         libcudnn7=${CUDNN}+cuda${CUDA} \
+         libcudnn7=${CUDNN}+cuda${CUDA}
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
          libnvinfer6=6.0.1-1+cuda${CUDA} \
          libnvinfer-dev=6.0.1-1+cuda${CUDA} \
          libnvinfer-plugin6=6.0.1-1+cuda${CUDA} \
