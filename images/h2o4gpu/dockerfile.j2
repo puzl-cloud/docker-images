@@ -27,7 +27,6 @@ RUN apt-get update \
 {{ required.create_link() }}
 {{ required.install_default_pip_package() }}
 {{ required.install_pip_package(packages) }}
-{{ required.install_h2o4gpu() }}
 {{ required.install_rclone() }}
 {{ required.clean_up() }}
 {{ docker.expose(2222) }}

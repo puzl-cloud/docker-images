@@ -101,13 +101,8 @@ RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 
 RUN ${INTERPRETER} -m pip install \
         jupyterlab \
+        h2o4gpu==0.4.1 \
     && ${INTERPRETER} -m pip cache purge
-
-RUN curl https://s3.amazonaws.com/h2o-release/h2o4gpu/releases/stable/ai/h2o/h2o4gpu/0.4-cuda10/rel-0.4.0/h2o4gpu-0.4.0-cp36-cp36m-linux_x86_64.whl \
-      -o ~/h2o4gpu-0.4.0-cp36-cp36m-linux_x86_64.whl \
-    && ${INTERPRETER} -m pip install \
-         ~/h2o4gpu-0.4.0-cp36-cp36m-linux_x86_64.whl \
-    && rm ~/h2o4gpu-0.4.0-cp36-cp36m-linux_x86_64.whl
 
 RUN curl https://rclone.org/install.sh -o ~/install.sh \
     && chmod +x ~/install.sh \
