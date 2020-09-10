@@ -1,6 +1,9 @@
 {
-    "sourceImage": "jupyter/r-notebook",
-    "sourceTag": "6d42503c684f",
+    "sourceImage":"nvidia/cuda",
+    "sourceTag":"10.1-cudnn7-devel-ubuntu18.04",
+    "interpreters": [
+        "python3.8"
+    ],
     "packages": [
         {
             "name": "jupyterlab",
