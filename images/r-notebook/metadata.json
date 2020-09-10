@@ -1,0 +1,28 @@
+{
+    "sourceImage": "jupyter",
+    "sourceTag": "r-notebook",
+    "packages": [
+        {
+            "name": "jupyterlab",
+            "type": "pip"
+        },
+        {
+            "name": "rclone",
+            "type": "os"
+        },
+        {
+            "name": "openssh-server",
+            "type": "os"
+        },
+        {
+            "name": "rsync",
+            "type": "os"
+        }
+    ],
+    "image": {
+        "tagPrefix": "latest"
+    },
+    "description": "Jupyter Notebook R Stack",
+    "enable": false,
+    "skipTests": false
+}
