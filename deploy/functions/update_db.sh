@@ -51,11 +51,22 @@ function docker_tag_exists() {
       -lL "https://hub.docker.com/v2/repositories/${image}/tags/${tag}/" > /dev/null
 }
 
+push_readme() {
+  local -r image_full_path="${1}"
+  local -r image="${2}"
+  
+  docker-pushrm ${image} -f ${image_full_path}/README.md
+}
+
 update_db() {
   local -r repo_path="${1}"
+  local -r branch="${2}"
   local -r image_repo="$(jq -r '.repository.name' ${repo_path}/globals/main.json)"
   local HASURA_QUERY=$(jo query="${HASURA_UPSERT_DOCKER_IMAGE}" \
                           variables="$(jo images="$(jo -a </dev/null)")")
+
+  # Login into Docker repository
+  echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
 
   for image_full_path in ${repo_path}/images/*; do
     local image_name="$(echo ${image_full_path} | sed 's/.*\///g')"
@@ -87,6 +98,9 @@ update_db() {
         IMAGE_OBJECT=$(echo ${IMAGE_OBJECT} | jq --arg interpreterVersion "${interpreter_version}" '. += {"interpreterVersion":$interpreterVersion}')
         if docker_tag_exists "${repo}" "${tag}"; then
           HASURA_QUERY=$(echo ${HASURA_QUERY} | jq ".variables.images[.variables.images | length] |= . + ${IMAGE_OBJECT}")
+          if [[ "${branch}" == "master" ]]; then
+            push_readme "${repo}" "${image_full_path}"
+          fi
         else 
           echo "Build and push ${repo}:${tag}"
           exit 1
@@ -96,6 +110,9 @@ update_db() {
       IMAGE_OBJECT=$(echo ${IMAGE_OBJECT} | jq --arg tag "${image_tag}" '. += {"tag":$tag}')
       if docker_tag_exists "${repo}" "${image_tag}"; then
         HASURA_QUERY=$(echo ${HASURA_QUERY} | jq ".variables.images[.variables.images | length] |= . + ${IMAGE_OBJECT}")
+        if [[ "${branch}" == "master" ]]; then
+          push_readme "${repo}" "${image_full_path}"
+        fi
       else
         echo "Build and push ${repo}:${image_tag}"
         exit 1
