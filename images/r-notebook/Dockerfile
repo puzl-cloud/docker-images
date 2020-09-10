@@ -8,6 +8,8 @@ ENV USER=ubuntu \
     GID=1000 \
     PATH="${PATH}:/opt/conda/bin"
 
+USER root
+
 SHELL ["/bin/bash", "-c"]
 
 RUN apt-get update \

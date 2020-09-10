@@ -6,6 +6,7 @@
 {{ docker.fromOfficial(sourceImage, sourceTag) }}
 {{ docker.label() }}
 {{ env.general() }}
+{{ docker.user("root") }}
 {{ docker.shell('["/bin/bash", "-c"]') }}
 {{ required.install_main_pakage() }}
 {{ required.add_user() }}
