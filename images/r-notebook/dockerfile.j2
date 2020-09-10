@@ -9,7 +9,6 @@
 {{ docker.user("root") }}
 {{ docker.shell('["/bin/bash", "-c"]') }}
 {{ required.install_main_pakage() }}
-{{ required.add_user() }}
 {{ configs.general() }}
 {{ required.configure() }}
 {{ required.install_rclone() }}

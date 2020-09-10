@@ -34,15 +34,6 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN addgroup --gid "$GID" "$USER" \
-    && adduser \
-         --disabled-password \
-         --gecos "" \
-         --ingroup "$USER" \
-         --uid "$UID" \
-         --shell /bin/bash \
-         "$USER"
-
 COPY template/configs/sshd_config /home/"$USER"/.ssh/sshd_config
 COPY template/configs/config /home/"$USER"/.ssh/config
 COPY template/configs/bash.bashrc /etc/bash.bashrc
