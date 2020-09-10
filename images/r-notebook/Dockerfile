@@ -110,8 +110,6 @@ EXPOSE 8888
 
 WORKDIR /tmp
 
-USER $UID
-
 # R packages
 RUN conda install -c conda-forge --quiet --yes \
     'r-base=4.0.0' \
@@ -139,5 +137,7 @@ RUN conda install -c conda-forge --quiet --yes \
 
 # Install e1071 R package (dependency of the caret R package)
 RUN conda install --quiet --yes r-e1071
+
+USER $UID
 
 CMD ["/bin/sh", "-c", "exit 0"]
