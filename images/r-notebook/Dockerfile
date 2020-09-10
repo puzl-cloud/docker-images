@@ -134,7 +134,7 @@ RUN conda install -c conda-forge --quiet --yes \
     && conda clean --all -f -y
 
 # Install e1071 R package (dependency of the caret R package)
-RUN conda install --quiet --yes r-e1071
+RUN conda install -c conda-forge --quiet --yes r-e1071
 
 USER $UID
 
