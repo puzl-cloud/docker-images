@@ -1,6 +1,6 @@
 {
-    "sourceImage": "jupyter",
-    "sourceTag": "r-notebook",
+    "sourceImage": "jupyter/r-notebook",
+    "sourceTag": "latest",
     "packages": [
         {
             "name": "jupyterlab",

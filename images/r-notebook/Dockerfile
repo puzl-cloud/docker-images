@@ -1,4 +1,4 @@
-FROM jupyter:r-notebook
+FROM jupyter/r-notebook:latest
 
 LABEL maintainer=sergey.monakhov@gmail.com \
       vendor=puzl.ee
