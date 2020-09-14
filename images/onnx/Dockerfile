@@ -36,6 +36,9 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+ARG TINI_VERSION=v0.19.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/local/bin/tini
+
 RUN add-apt-repository ppa:deadsnakes/ppa -y \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -43,6 +46,12 @@ RUN add-apt-repository ppa:deadsnakes/ppa -y \
          ${INTERPRETER}-distutils \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+RUN curl -o ~/nodejs.sh --silent --location https://deb.nodesource.com/setup_12.x \
+    && bash ~/nodejs.sh \
+    && apt-get install --yes nodejs \
+    && npm install -g yarn \
+    && rm -f ~/nodejs.sh
 
 RUN addgroup --gid "$GID" "$USER" \
     && adduser \
@@ -97,6 +106,10 @@ RUN ${INTERPRETER} -m pip install \
         onnx \
         jupyterlab \
     && ${INTERPRETER} -m pip cache purge
+
+RUN ${INTERPRETER} -m pip install --upgrade --force-reinstall \
+      nbconvert==5.6.1 \
+    && jupyter contrib nbextension install --sys-prefix
 
 RUN curl https://rclone.org/install.sh -o ~/install.sh \
     && chmod +x ~/install.sh \
