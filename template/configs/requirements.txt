@@ -1,5 +1,3 @@
-ipykernel
-nbformat
 numpy
 pyyaml
 scipy
