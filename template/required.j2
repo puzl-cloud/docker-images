@@ -161,7 +161,7 @@ RUN apt-get update \
 {% endmacro %}
 
 {%- macro enable_jupyter_extensions() -%}
-RUN pip install nbconvert==5.6.1 --force \
+RUN ${INTERPRETER} -m pip install nbconvert==5.6.1 --force \
     && jupyter contrib nbextension install --sys-prefix
 {% endmacro %}
 
