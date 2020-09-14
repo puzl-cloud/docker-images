@@ -19,6 +19,7 @@
 {{ required.create_link() }}
 {{ required.install_default_pip_package() }}
 {{ required.install_pip_package(packages) }}
+{{ required.enable_jupyter_extensions() }}
 {{ required.install_rclone() }}
 {{ required.clean_up() }}
 {{ docker.expose(2222) }}

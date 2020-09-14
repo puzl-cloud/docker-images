@@ -96,6 +96,8 @@ RUN ${INTERPRETER} -m pip install \
         jupyterlab \
     && ${INTERPRETER} -m pip cache purge
 
+RUN jupyter contrib nbextension install --sys-prefix
+
 RUN curl https://rclone.org/install.sh -o ~/install.sh \
     && chmod +x ~/install.sh \
     && ~/install.sh \
