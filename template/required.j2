@@ -163,3 +163,8 @@ RUN apt-get update \
 {%- macro enable_jupyter_extensions() -%}
 RUN jupyter contrib nbextension install --sys-prefix
 {% endmacro %}
+
+{%- macro install_tini(version) -%}
+ARG TINI_VERSION={{version}}
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/local/bin/tini
+{% endmacro %}

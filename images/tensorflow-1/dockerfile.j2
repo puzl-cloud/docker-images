@@ -10,6 +10,7 @@
 {{ env.general() }}
 {{ docker.shell('["/bin/bash", "-c"]') }}
 {{ required.install_main_pakage() }}
+{{ install_tini("v0.19.0") }}
 {{ required.install_python() }}
 {{ required.add_user() }}
 {{ configs.general() }}
