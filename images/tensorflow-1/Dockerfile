@@ -99,7 +99,8 @@ RUN ${INTERPRETER} -m pip install \
         jupyterlab \
     && ${INTERPRETER} -m pip cache purge
 
-RUN ${INTERPRETER} -m pip install nbconvert==5.6.1 --force \
+RUN ${INTERPRETER} -m pip install --upgrade --force-reinstall \
+      nbconvert==5.6.1 \
     && jupyter contrib nbextension install --sys-prefix
 
 RUN curl https://rclone.org/install.sh -o ~/install.sh \
