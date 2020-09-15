@@ -52,8 +52,6 @@ RUN add-apt-repository --enable-source --yes "ppa:marutter/rrutter4.0" \
  	&& ln -s /usr/lib/R/site-library/littler/examples/installGithub.r /usr/local/bin/installGithub.r \
  	&& ln -s /usr/lib/R/site-library/littler/examples/testInstalled.r /usr/local/bin/testInstalled.r \
  	&& install.r docopt pillar IRkernel \
-	&& R -e "install.packages('IRkernel')" \
-	&& R -e "IRkernel::installspec(user = FALSE)" \
  	&& rm -rf /tmp/downloaded_packages/ /tmp/*.rds \
     && apt-get clean \
  	&& rm -rf /var/lib/apt/lists/*
@@ -129,6 +127,9 @@ RUN ${INTERPRETER} -m pip install \
 RUN ${INTERPRETER} -m pip install --upgrade --force-reinstall \
       nbconvert==5.6.1 \
     && jupyter contrib nbextension install --sys-prefix
+
+RUN R -e "install.packages('IRkernel')" \
+	&& R -e "IRkernel::installspec(user = FALSE)"
 
 RUN curl https://rclone.org/install.sh -o ~/install.sh \
     && chmod +x ~/install.sh \
