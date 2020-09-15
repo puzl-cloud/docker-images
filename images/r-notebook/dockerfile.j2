@@ -36,6 +36,9 @@ RUN add-apt-repository --enable-source --yes "ppa:marutter/rrutter4.0" \
 {{ required.add_user() }}
 {{ configs.general() }}
 {{ required.configure() }}
+RUN sudo su - -c "R -e \"install.packages('IRkernel')\"" \
+    sudo su - -c "R -e \"IRkernel::installspec(user = FALSE)\""
+
 {{ required.install_conda() }}
 {{ required.install_pip() }}
 {{ required.create_link() }}
