@@ -25,30 +25,24 @@
 {{ docker.expose(8888) }}
 {{ docker.workdir("/tmp") }}
 # R packages
-RUN conda install -c conda-forge --quiet --yes \
-    'r-base=4.0.0' \
-    'r-caret=6.*' \
-    'r-crayon=1.3*' \
-    'r-devtools=2.3*' \
-    'r-forecast=8.12*' \
-    'r-hexbin=1.28*' \
-    'r-htmltools=0.4*' \
-    'r-htmlwidgets=1.5*' \
-    'r-irkernel=1.1*' \
-    'r-nycflights13=1.0*' \
-    'r-randomforest=4.6*' \
-    'r-rcurl=1.98*' \
-    'r-rmarkdown=2.2*' \
-    'r-rodbc=1.3*' \
-    'r-rsqlite=2.2*' \
-    'r-shiny=1.4*' \
-    'r-tidyverse=1.3*' \
-    'unixodbc=2.3.*' \
-    'r-tidymodels=0.1*' \
-    && conda clean --all -f -y
+ENV DEBIAN_FRONTEND noninteractive
 
-# Install e1071 R package (dependency of the caret R package)
-RUN conda install -c conda-forge --quiet --yes r-e1071
+RUN add-apt-repository --enable-source --yes "ppa:marutter/rrutter4.0" \
+    && add-apt-repository --enable-source --yes "ppa:c2d4u.team/c2d4u4.0+" \
+    apt-get update \
+        && apt-get install -y --no-install-recommends \
+             littler \
+ 		     r-base \
+ 		     r-base-dev \
+ 		     r-recommended \
+  	&& ln -s /usr/lib/R/site-library/littler/examples/install.r /usr/local/bin/install.r \
+ 	&& ln -s /usr/lib/R/site-library/littler/examples/install2.r /usr/local/bin/install2.r \
+ 	&& ln -s /usr/lib/R/site-library/littler/examples/installGithub.r /usr/local/bin/installGithub.r \
+ 	&& ln -s /usr/lib/R/site-library/littler/examples/testInstalled.r /usr/local/bin/testInstalled.r \
+ 	&& install.r docopt pillar IRkernel \
+ 	&& rm -rf /tmp/downloaded_packages/ /tmp/*.rds \
+    && apt-get clean \
+ 	&& rm -rf /var/lib/apt/lists/*
 
 {{ docker.user("$UID") }}
 {{ docker.cmd('["/bin/sh", "-c", "exit 0"]') }}
