@@ -10,20 +10,6 @@
 {{ env.general() }}
 {{ docker.shell('["/bin/bash", "-c"]') }}
 {{ required.install_main_pakage() }}
-{{ required.install_python() }}
-{{ required.add_user() }}
-{{ configs.general() }}
-{{ required.configure() }}
-{{ required.install_conda() }}
-{{ required.install_pip() }}
-{{ required.create_link() }}
-{{ required.install_default_pip_package() }}
-{{ required.install_pip_package(packages) }}
-{{ required.install_rclone() }}
-{{ required.clean_up() }}
-{{ docker.expose(2222) }}
-{{ docker.expose(8888) }}
-{{ docker.workdir("/tmp") }}
 # R packages
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -44,5 +30,19 @@ RUN add-apt-repository --enable-source --yes "ppa:marutter/rrutter4.0" \
     && apt-get clean \
  	&& rm -rf /var/lib/apt/lists/*
 
+{{ required.install_python() }}
+{{ required.add_user() }}
+{{ configs.general() }}
+{{ required.configure() }}
+{{ required.install_conda() }}
+{{ required.install_pip() }}
+{{ required.create_link() }}
+{{ required.install_default_pip_package() }}
+{{ required.install_pip_package(packages) }}
+{{ required.install_rclone() }}
+{{ required.clean_up() }}
+{{ docker.expose(2222) }}
+{{ docker.expose(8888) }}
+{{ docker.workdir("/tmp") }}
 {{ docker.user("$UID") }}
 {{ docker.cmd('["/bin/sh", "-c", "exit 0"]') }}

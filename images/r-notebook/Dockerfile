@@ -36,6 +36,26 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+# R packages
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN add-apt-repository --enable-source --yes "ppa:marutter/rrutter4.0" \
+    && add-apt-repository --enable-source --yes "ppa:c2d4u.team/c2d4u4.0+" \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+         littler \
+ 		 r-base \
+ 		 r-base-dev \
+ 		 r-recommended \
+  	&& ln -s /usr/lib/R/site-library/littler/examples/install.r /usr/local/bin/install.r \
+ 	&& ln -s /usr/lib/R/site-library/littler/examples/install2.r /usr/local/bin/install2.r \
+ 	&& ln -s /usr/lib/R/site-library/littler/examples/installGithub.r /usr/local/bin/installGithub.r \
+ 	&& ln -s /usr/lib/R/site-library/littler/examples/testInstalled.r /usr/local/bin/testInstalled.r \
+ 	&& install.r docopt pillar IRkernel \
+ 	&& rm -rf /tmp/downloaded_packages/ /tmp/*.rds \
+    && apt-get clean \
+ 	&& rm -rf /var/lib/apt/lists/*
+
 RUN add-apt-repository ppa:deadsnakes/ppa -y \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -109,26 +129,6 @@ EXPOSE 2222
 EXPOSE 8888
 
 WORKDIR /tmp
-
-# R packages
-ENV DEBIAN_FRONTEND noninteractive
-
-RUN add-apt-repository --enable-source --yes "ppa:marutter/rrutter4.0" \
-    && add-apt-repository --enable-source --yes "ppa:c2d4u.team/c2d4u4.0+" \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends \
-         littler \
- 		 r-base \
- 		 r-base-dev \
- 		 r-recommended \
-  	&& ln -s /usr/lib/R/site-library/littler/examples/install.r /usr/local/bin/install.r \
- 	&& ln -s /usr/lib/R/site-library/littler/examples/install2.r /usr/local/bin/install2.r \
- 	&& ln -s /usr/lib/R/site-library/littler/examples/installGithub.r /usr/local/bin/installGithub.r \
- 	&& ln -s /usr/lib/R/site-library/littler/examples/testInstalled.r /usr/local/bin/testInstalled.r \
- 	&& install.r docopt pillar IRkernel \
- 	&& rm -rf /tmp/downloaded_packages/ /tmp/*.rds \
-    && apt-get clean \
- 	&& rm -rf /var/lib/apt/lists/*
 
 USER $UID
 
