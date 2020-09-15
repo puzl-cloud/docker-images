@@ -27,6 +27,6 @@
     },
     "iconUrl": "https://static.puzl.ee/images/docker-images/r/r-logo.svg",
     "description": "Jupyter Notebook R Stack",
-    "enable": false,
+    "enable": true,
     "skipTests": false
 }
