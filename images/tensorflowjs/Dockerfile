@@ -1,8 +1,8 @@
-FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
+FROM nvidia/cuda:10.0-base-ubuntu18.04
 
-ARG INTERPRETER
+ARG CUDA=10.0
 
-ARG INTERPRETER_VERSION
+ARG CUDNN=7.6.4.38-1
 
 LABEL maintainer=sergey.monakhov@gmail.com \
       vendor=puzl.ee
@@ -36,14 +36,27 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-ARG TINI_VERSION=v0.19.0
-ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/local/bin/tini
-
-RUN add-apt-repository ppa:deadsnakes/ppa -y \
-    && apt-get update \
+RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-         ${INTERPRETER} \
-         ${INTERPRETER}-distutils \
+         cuda-command-line-tools-${CUDA/./-} \
+         # There appears to be a regression in libcublas10=10.2.2.89-1 which
+         # prevents cublas from initializing in TF. See
+         # https://github.com/tensorflow/tensorflow/issues/9489#issuecomment-562394257
+         libcublas10=10.2.1.243-1 \ 
+         cuda-nvrtc-${CUDA/./-} \
+         cuda-cufft-${CUDA/./-} \
+         cuda-curand-${CUDA/./-} \
+         cuda-cusolver-${CUDA/./-} \
+         cuda-cusparse-${CUDA/./-} \
+         libcudnn7=${CUDNN}+cuda${CUDA} \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+         libnvinfer6=6.0.1-1+cuda${CUDA} \
+         libnvinfer-dev=6.0.1-1+cuda${CUDA} \
+         libnvinfer-plugin6=6.0.1-1+cuda${CUDA} \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -80,35 +93,10 @@ RUN rm -f /etc/ssh/ssh_host_*key* \
     && chmod +x /usr/local/bin/* \
     && echo "PATH=\"${PATH}\"" > /etc/environment
 
-RUN curl -o ~/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
-    && chmod +x ~/miniconda.sh \
-    && ~/miniconda.sh -b -p /opt/conda \
-    && rm ~/miniconda.sh
-
-RUN curl https://bootstrap.pypa.io/get-pip.py -o /tmp/get-pip.py \
-    && ${INTERPRETER} /tmp/get-pip.py \
-    && rm -rf /tmp/get-pip.py
-
-RUN rm -rf /usr/local/bin/pip3 \
-      /usr/local/bin/pip \
-      /usr/bin/python3 \
-      /usr/bin/python \
-    && ln -s /usr/local/bin/pip${INTERPRETER_VERSION} /usr/local/bin/pip \
-    && ln -s /usr/local/bin/pip${INTERPRETER_VERSION} /usr/local/bin/pip3 \
-    && ln -s /usr/bin/${INTERPRETER} /usr/bin/python3 \
-    && ln -s /usr/bin/python3 /usr/bin/python
-
-RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
-
-RUN ${INTERPRETER} -m pip install \
-        torch==1.6.0 \
-        torchvision==0.7.0 \
-        jupyterlab \
-    && ${INTERPRETER} -m pip cache purge
-
-RUN ${INTERPRETER} -m pip install --upgrade --force-reinstall \
-      nbconvert==5.6.1 \
-    && jupyter contrib nbextension install --sys-prefix
+RUN yarn add \
+        @tensorflow/tfjs@2.0.1 \
+        @tensorflow/tfjs-node-gpu@2.0.1 \
+    && yarn cache clean
 
 RUN curl https://rclone.org/install.sh -o ~/install.sh \
     && chmod +x ~/install.sh \
@@ -120,8 +108,6 @@ RUN rm -rf \
         /tmp/*
 
 EXPOSE 2222
-
-EXPOSE 8888
 
 WORKDIR /tmp
 

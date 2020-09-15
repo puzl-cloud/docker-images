@@ -53,6 +53,14 @@ RUN curl -o ~/nodejs.sh --silent --location https://deb.nodesource.com/setup_12.
     && npm install -g yarn \
     && rm -f ~/nodejs.sh
 
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+         lib${INTERPRETER}-dev \
+         libopenblas-dev \
+         pbzip2 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 RUN addgroup --gid "$GID" "$USER" \
     && adduser \
          --disabled-password \
@@ -101,9 +109,8 @@ RUN rm -rf /usr/local/bin/pip3 \
 RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 
 RUN ${INTERPRETER} -m pip install \
-        torch==1.6.0 \
-        torchvision==0.7.0 \
         jupyterlab \
+        h2o4gpu==0.4.1 \
     && ${INTERPRETER} -m pip cache purge
 
 RUN ${INTERPRETER} -m pip install --upgrade --force-reinstall \

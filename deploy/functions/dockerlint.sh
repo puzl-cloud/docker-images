@@ -8,7 +8,7 @@ run_docker_lint() {
   j2 -f json ${image_full_path}/dockerfile.j2 ${image_full_path}/metadata.json -o ./Dockerfile
 
   printf '\033\033[0;34m- Running dockerfile lint in %s \n\033[0m' "$image_path"
-  if ! hadolint ./Dockerfile >> /dev/null; then
+  if ! hadolint ./Dockerfile; then
     printf '\033[0;31m\U0001F6AB dockerfile lint %s failed.\n\n\033[0m' "$image_path"
     test_failed=1
   fi

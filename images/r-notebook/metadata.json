@@ -1,0 +1,32 @@
+{
+    "sourceImage":"nvidia/cuda",
+    "sourceTag":"10.1-cudnn7-devel-ubuntu18.04",
+    "interpreters": [
+        "python3.8"
+    ],
+    "packages": [
+        {
+            "name": "jupyterlab",
+            "type": "pip"
+        },
+        {
+            "name": "rclone",
+            "type": "os"
+        },
+        {
+            "name": "openssh-server",
+            "type": "os"
+        },
+        {
+            "name": "rsync",
+            "type": "os"
+        }
+    ],
+    "image": {
+        "tagPrefix": "latest"
+    },
+    "iconUrl": "https://static.puzl.ee/images/docker-images/r/r-logo.svg",
+    "description": "Jupyter Notebook R Stack",
+    "enable": true,
+    "skipTests": false
+}

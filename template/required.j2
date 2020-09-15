@@ -1,8 +1,7 @@
-{%- macro install_pakage() -%}
+{%- macro install_main_pakage() -%}
 RUN apt-get update \
     && apt-get install -y software-properties-common \
     && add-apt-repository ppa:git-core/ppa -y \
-    && add-apt-repository ppa:deadsnakes/ppa -y \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
          build-essential \
@@ -19,10 +18,26 @@ RUN apt-get update \
          vim \
          sudo \
          unzip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+{% endmacro %}
+
+{%- macro install_python() -%}
+RUN add-apt-repository ppa:deadsnakes/ppa -y \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
          ${INTERPRETER} \
          ${INTERPRETER}-distutils \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+{% endmacro %}
+
+{%- macro install_node() -%}
+RUN curl -o ~/nodejs.sh --silent --location https://deb.nodesource.com/setup_12.x \
+    && bash ~/nodejs.sh \
+    && apt-get install --yes nodejs \
+    && npm install -g yarn \
+    && rm -f ~/nodejs.sh
 {% endmacro %}
 
 {%- macro add_user() -%}
@@ -88,14 +103,28 @@ RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 RUN ${INTERPRETER} -m pip install \
   {%- for package in packages -%}
     {%- if package.type == "pip" -%}
-      {% if package.version|length %}
+      {% if package.version is defined %}
         {{ package.name }}=={{ package.version }} \
       {%- else %}
         {{ package.name }} \
-      {% endif %}
+      {%- endif %}
     {%- endif %}
   {%- endfor %}
     && ${INTERPRETER} -m pip cache purge
+{% endmacro %}
+
+{%- macro install_yarn_package(packages) -%}
+RUN yarn add \
+  {%- for package in packages -%}
+    {%- if package.type == "yarn" -%}
+      {% if package.version is defined %}
+        {{ package.name }}@{{ package.version }} \
+      {%- else %}
+        {{ package.name }} \
+      {%- endif %}
+    {%- endif %}
+  {%- endfor %}
+    && yarn cache clean
 {% endmacro %}
 
 {%- macro install_rclone() -%}
@@ -103,4 +132,41 @@ RUN curl https://rclone.org/install.sh -o ~/install.sh \
     && chmod +x ~/install.sh \
     && ~/install.sh \
     && rm ~/install.sh
+{% endmacro %}
+
+{%- macro install_cuda_pakage() -%}
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+         cuda-command-line-tools-${CUDA/./-} \
+         # There appears to be a regression in libcublas10=10.2.2.89-1 which
+         # prevents cublas from initializing in TF. See
+         # https://github.com/tensorflow/tensorflow/issues/9489#issuecomment-562394257
+         libcublas10=10.2.1.243-1 \ 
+         cuda-nvrtc-${CUDA/./-} \
+         cuda-cufft-${CUDA/./-} \
+         cuda-curand-${CUDA/./-} \
+         cuda-cusolver-${CUDA/./-} \
+         cuda-cusparse-${CUDA/./-} \
+         libcudnn7=${CUDNN}+cuda${CUDA} \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+         libnvinfer6=6.0.1-1+cuda${CUDA} \
+         libnvinfer-dev=6.0.1-1+cuda${CUDA} \
+         libnvinfer-plugin6=6.0.1-1+cuda${CUDA} \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+{% endmacro %}
+
+{%- macro enable_jupyter_extensions() -%}
+RUN ${INTERPRETER} -m pip install --upgrade --force-reinstall \
+      nbconvert==5.6.1 \
+    && jupyter contrib nbextension install --sys-prefix
+{% endmacro %}
+
+{%- macro install_tini(version) -%}
+ARG TINI_VERSION={{version}}
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/local/bin/tini
 {% endmacro %}

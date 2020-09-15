@@ -36,6 +36,26 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+# R packages
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN add-apt-repository --enable-source --yes "ppa:marutter/rrutter4.0" \
+    && add-apt-repository --enable-source --yes "ppa:c2d4u.team/c2d4u4.0+" \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+         littler \
+ 		 r-base \
+ 		 r-base-dev \
+ 		 r-recommended \
+  	&& ln -s /usr/lib/R/site-library/littler/examples/install.r /usr/local/bin/install.r \
+ 	&& ln -s /usr/lib/R/site-library/littler/examples/install2.r /usr/local/bin/install2.r \
+ 	&& ln -s /usr/lib/R/site-library/littler/examples/installGithub.r /usr/local/bin/installGithub.r \
+ 	&& ln -s /usr/lib/R/site-library/littler/examples/testInstalled.r /usr/local/bin/testInstalled.r \
+ 	&& install.r docopt pillar IRkernel \
+ 	&& rm -rf /tmp/downloaded_packages/ /tmp/*.rds \
+    && apt-get clean \
+ 	&& rm -rf /var/lib/apt/lists/*
+
 ARG TINI_VERSION=v0.19.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/local/bin/tini
 
@@ -101,14 +121,15 @@ RUN rm -rf /usr/local/bin/pip3 \
 RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 
 RUN ${INTERPRETER} -m pip install \
-        torch==1.6.0 \
-        torchvision==0.7.0 \
         jupyterlab \
     && ${INTERPRETER} -m pip cache purge
 
 RUN ${INTERPRETER} -m pip install --upgrade --force-reinstall \
       nbconvert==5.6.1 \
     && jupyter contrib nbextension install --sys-prefix
+
+RUN R -e "install.packages('IRkernel')" \
+	&& R -e "IRkernel::installspec(user = FALSE)"
 
 RUN curl https://rclone.org/install.sh -o ~/install.sh \
     && chmod +x ~/install.sh \

@@ -1,4 +1,4 @@
-FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
+FROM tensorflow/tensorflow:2.3.0-gpu
 
 ARG INTERPRETER
 
@@ -101,8 +101,8 @@ RUN rm -rf /usr/local/bin/pip3 \
 RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 
 RUN ${INTERPRETER} -m pip install \
-        torch==1.6.0 \
-        torchvision==0.7.0 \
+        tensorflow-gpu==2.3.0 \
+        keras==2.4.3 \
         jupyterlab \
     && ${INTERPRETER} -m pip cache purge
 

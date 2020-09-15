@@ -1,25 +1,23 @@
 {
-    "sourceImage":"nvidia/cuda",
-    "sourceTag":"10.1-cudnn7-devel-ubuntu18.04",
+    "sourceImage": "nvidia/cuda",
+    "sourceTag": "10.1-cudnn7-devel-ubuntu18.04",
     "interpreters": [
         "python3.6",
-        "python3.7",
-        "python3.8"
+        "python3.7"
     ],
     "packages": [
         {
-            "name": "torch",
-            "version": "1.6.0",
-            "type": "pip"
-        },
-        {
-            "name": "torchvision",
-            "version": "0.7.0",
-            "type": "pip"
-        },
-        {
             "name": "jupyterlab",
             "type": "pip"
+        },
+        {
+            "name": "h2o4gpu",
+            "version": "0.4.1",
+            "type": "pip"
+        },
+        {
+            "name": "caffe2",
+            "type": "os"
         },
         {
             "name": "rclone",
@@ -39,10 +37,9 @@
         }
     ],
     "image": {
-        "tagPrefix": "1.6-cuda10.1-cudnn7-jupyter"
+        "tagPrefix": "0.4.1-cuda10.1-cudnn7-jupyter"
     },
-    "iconUrl": "https://static.puzl.ee/images/docker-images/pytorch/pytorch.svg",
-    "description": "Pytorch framework with various python runtime.",
-    "enable": true,
+    "description": "H2O4GPU framework with various python runtime.",
+    "enable": false,
     "skipTests": false
 }

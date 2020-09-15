@@ -13,6 +13,14 @@
 {{ required.install_tini("v0.19.0") }}
 {{ required.install_python() }}
 {{ required.install_node() }}
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+         lib${INTERPRETER}-dev \
+         libopenblas-dev \
+         pbzip2 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 {{ required.add_user() }}
 {{ configs.general() }}
 {{ required.configure() }}

@@ -103,6 +103,7 @@ RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 RUN ${INTERPRETER} -m pip install \
         torch==1.6.0 \
         torchvision==0.7.0 \
+        fastai==2.0.8 \
         jupyterlab \
     && ${INTERPRETER} -m pip cache purge
 

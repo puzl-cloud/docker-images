@@ -1,6 +1,6 @@
 {
-    "sourceImage":"nvidia/cuda",
-    "sourceTag":"10.1-cudnn7-devel-ubuntu18.04",
+    "sourceImage": "nvidia/cuda",
+    "sourceTag": "10.1-cudnn7-devel-ubuntu18.04",
     "interpreters": [
         "python3.6",
         "python3.7",
@@ -22,6 +22,10 @@
             "type": "pip"
         },
         {
+            "name": "caffe2",
+            "type": "os"
+        },
+        {
             "name": "rclone",
             "type": "os"
         },
@@ -41,8 +45,8 @@
     "image": {
         "tagPrefix": "1.6-cuda10.1-cudnn7-jupyter"
     },
-    "iconUrl": "https://static.puzl.ee/images/docker-images/pytorch/pytorch.svg",
-    "description": "Pytorch framework with various python runtime.",
+    "iconUrl": "https://static.puzl.ee/images/docker-images/caffe2/caffe2.svg",
+    "description": "Caffe2 framework with various python runtime.",
     "enable": true,
     "skipTests": false
 }

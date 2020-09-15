@@ -13,17 +13,20 @@ echo "files_to_push: ${files_to_push}"
 
 for image_path in $( cut -d'/' -f1,2 <<< "${files_to_push}" | uniq ); do
   if [[ $image_path = images/* ]]; then
-    printf '\033[01;33mValidating %s with Dockerfile lint:\n\033[0m' "$image_path"
-    if ! run_docker_lint "$image_path"; then
-      output "1" "Dockerfile lint"
-    else
-      output "0" "Dockerfile lint"
-    fi
-    printf '\033[01;33mRun docker image test in %s:\n\033[0m' "$image_path"
-    if ! run_docker_image_test "$image_path"; then
-      output "1" "Docker image test"
-    else
-      output "0" "Docker image test"
+    skip_test=$(jq -r '.skipTests' $image_path/metadata.json)
+    if [[ "${skip_test}" == "false" ]]; then
+      printf '\033[01;33mValidating %s with Dockerfile lint:\n\033[0m' "$image_path"
+      if ! run_docker_lint "$image_path"; then
+        output "1" "Dockerfile lint"
+      else
+        output "0" "Dockerfile lint"
+      fi
+      printf '\033[01;33mRun docker image test in %s:\n\033[0m' "$image_path"
+      if ! run_docker_image_test "$image_path"; then
+        output "1" "Docker image test"
+      else
+        output "0" "Docker image test"
+      fi
     fi
   fi
 done
