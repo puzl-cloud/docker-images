@@ -52,6 +52,8 @@ RUN add-apt-repository --enable-source --yes "ppa:marutter/rrutter4.0" \
  	&& ln -s /usr/lib/R/site-library/littler/examples/installGithub.r /usr/local/bin/installGithub.r \
  	&& ln -s /usr/lib/R/site-library/littler/examples/testInstalled.r /usr/local/bin/testInstalled.r \
  	&& install.r docopt pillar IRkernel \
+	&& R -e "install.packages('IRkernel')" \
+	&& R -e "IRkernel::installspec(user = FALSE)" \
  	&& rm -rf /tmp/downloaded_packages/ /tmp/*.rds \
     && apt-get clean \
  	&& rm -rf /var/lib/apt/lists/*
@@ -99,9 +101,6 @@ RUN rm -f /etc/ssh/ssh_host_*key* \
     && chown -R $USER:$USER /home/"$USER"/.ssh \
     && chmod +x /usr/local/bin/* \
     && echo "PATH=\"${PATH}\"" > /etc/environment
-
-RUN sudo su - -c "R -e \"install.packages('IRkernel')\"" \
-    sudo su - -c "R -e \"IRkernel::installspec(user = FALSE)\""
 
 RUN curl -o ~/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
     && chmod +x ~/miniconda.sh \
