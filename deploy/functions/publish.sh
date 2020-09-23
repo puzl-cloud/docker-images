@@ -35,6 +35,6 @@ run_publish_image() {
       docker build \
         -t ${image} .
     docker push ${image}
-    docker rmi ${image}
+    docker rmi --force ${image}
   fi
 }
