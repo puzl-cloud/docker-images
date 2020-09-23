@@ -78,4 +78,3 @@ WORKDIR /tmp
 USER $UID
 
 CMD ["/bin/sh", "-c", "exit 0"]
-
