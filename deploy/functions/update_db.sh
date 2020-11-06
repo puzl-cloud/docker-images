@@ -52,8 +52,8 @@ function docker_tag_exists() {
 }
 
 push_readme() {
-  local -r image_full_path="${1}"
-  local -r image="${2}"
+  local -r image="${1}"
+  local -r image_full_path="${2}"
   
   docker-pushrm ${image} -f ${image_full_path}/README.md
 }
