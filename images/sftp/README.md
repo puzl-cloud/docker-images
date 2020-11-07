@@ -7,9 +7,7 @@ Non-root Docker image used by puzl.ee [cloud Kubernetes](https://puzl.ee) servic
 ## Installed packages
 ### OS
 - rclone
-
 - openssh-server
-
 - rsync
 
 
