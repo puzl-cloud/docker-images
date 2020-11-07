@@ -3,7 +3,6 @@
 Fast.ai ML framework with various python runtime.
 
 Non-root Docker image used by puzl.ee [cloud Kubernetes](https://puzl.ee) service. Based on [official cuda](https://hub.docker.com/r/nvidia/cuda) Docker image.
-
 ## Supported languages and interpreter versions
 
 - python3.6
@@ -12,9 +11,8 @@ Non-root Docker image used by puzl.ee [cloud Kubernetes](https://puzl.ee) servic
 
 - python3.8
 
-## Additional packages
+## Installed packages
 ### OS
-
 - rclone
 
 - conda
@@ -24,7 +22,6 @@ Non-root Docker image used by puzl.ee [cloud Kubernetes](https://puzl.ee) servic
 - rsync
 
 ### Python
-
 - [torch](https://pypi.org/project/torch/), version 1.6.0
 
 - [torchvision](https://pypi.org/project/torchvision/), version 0.7.0
@@ -32,4 +29,5 @@ Non-root Docker image used by puzl.ee [cloud Kubernetes](https://puzl.ee) servic
 - [fastai](https://pypi.org/project/fastai/), version 2.0.8
 
 - [jupyterlab](https://pypi.org/project/jupyterlab/)
+
 

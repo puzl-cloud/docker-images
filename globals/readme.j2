@@ -3,18 +3,22 @@
 {{image_description}}
 
 Non-root Docker image used by puzl.ee [cloud Kubernetes](https://puzl.ee) service. Based on [official {{source_image_name}}]({{source_image_link}}) Docker image.
-{% if interpreters is defined %}
-## Supported languages and interpreter versions
+{% if interpreters is defined %}## Supported languages and interpreter versions
 {% for interpreter in interpreters %}
 - {{interpreter}}
 {% endfor %}{% endif %}
-{% if additional_packages is defined %}## Additional packages
-{% if 'os' in additional_packages %}### OS
-{% for package in additional_packages.os %}
+{% if installed_packages is defined %}## Installed packages
+{% if 'os' in installed_packages %}### OS{% for package in installed_packages.os %}
 - {{package.name}}{% if package.version is defined %}, version {{package.version}}{% endif %}
 {% endfor %}{% endif %}
-{% if 'pip' in additional_packages %}### Python
-{% for package in additional_packages.pip %}
+{% if 'pip' in installed_packages %}### Python{% for package in installed_packages.pip %}
 - [{{package.name}}](https://pypi.org/project/{{package.name}}/){% if package.version is defined %}, version {{package.version}}{% endif %}
 {% endfor %}{% endif %}
+{% if 'npm' in installed_packages or 'yarn' in installed_packages%}### JavaScript
+{% if 'npm' in installed_packages %}{% for package in installed_packages.npm %}
+- [{{package.name}}](https://www.npmjs.com/package/{{package.name}}/){% if package.version is defined %}, version {{package.version}}{% endif %}
+{% endfor %}{% endif %}
+{% if 'yarn' in installed_packages%}{% for package in installed_packages.yarn %}
+- [{{package.name}}](https://www.npmjs.com/package/{{package.name}}/){% if package.version is defined %}, version {{package.version}}{% endif %}
+{% endfor %}{% endif %}{% endif %}
 {% endif %}

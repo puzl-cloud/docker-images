@@ -50,12 +50,12 @@ def render_readme(j2_template, meta, image_name, output):
         variables["interpreters"] = metadata["interpreters"]
 
     if "packages" in metadata and metadata["packages"]:
-        variables["additional_packages"] = dict()
+        variables["installed_packages"] = dict()
         for package in metadata["packages"]:
-            if package["type"] not in variables["additional_packages"]:
-                variables["additional_packages"][package["type"]] = list()
-            if package not in variables["additional_packages"][package["type"]]:
-                variables["additional_packages"][package["type"]].append(package)
+            if package["type"] not in variables["installed_packages"]:
+                variables["installed_packages"][package["type"]] = list()
+            if package not in variables["installed_packages"][package["type"]]:
+                variables["installed_packages"][package["type"]].append(package)
 
     try:
         rendered_template = template.render(**variables)
