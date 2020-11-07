@@ -26,7 +26,7 @@
         "tagPrefix": "latest"
     },
     "iconUrl": "https://static.puzl.ee/images/docker-images/r/r-logo.svg",
-    "description": "Jupyter Notebook R Stack",
+    "description": "Jupyter Lab with R kernel.",
     "enable": true,
     "skipTests": false
 }

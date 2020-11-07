@@ -18,7 +18,7 @@
     "image": {
         "tagPrefix": "latest"
     },
-    "description": "Provides non-root ssh access to container.",
+    "description": "SSH server to provide non-root access to container in a runtime.",
     "enable": false,
     "skipTests": false
 }

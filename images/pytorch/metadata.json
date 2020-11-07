@@ -42,7 +42,7 @@
         "tagPrefix": "1.6-cuda10.1-cudnn7-jupyter"
     },
     "iconUrl": "https://static.puzl.ee/images/docker-images/pytorch/pytorch.svg",
-    "description": "Pytorch framework with various python runtime.",
+    "description": "Pytorch ML framework with various python runtime.",
     "enable": true,
     "skipTests": false
 }

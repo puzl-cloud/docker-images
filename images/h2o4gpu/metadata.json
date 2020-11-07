@@ -39,7 +39,7 @@
     "image": {
         "tagPrefix": "0.4.1-cuda10.1-cudnn7-jupyter"
     },
-    "description": "H2O4GPU framework with various python runtime.",
+    "description": "H2O ML framework with GPU support and various python runtime.",
     "enable": false,
     "skipTests": false
 }

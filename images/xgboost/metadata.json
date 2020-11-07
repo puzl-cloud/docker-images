@@ -41,7 +41,7 @@
     "image": {
         "tagPrefix": "1.2.0-cuda10.1-cudnn7-jupyter"
     },
-    "description": "Xgboost framework with various python runtime.",
+    "description": "Xgboost ML library for various python runtime.",
     "enable": true,
     "skipTests": false
 }

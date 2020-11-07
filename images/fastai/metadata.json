@@ -47,7 +47,7 @@
         "tagPrefix": "2.0.8-cuda10.1-cudnn7-jupyter"
     },
     "iconUrl": "https://static.puzl.ee/images/docker-images/fast-ai/fastai-logo.svg",
-    "description": "Fastai framework with various python runtime.",
+    "description": "Fast.ai ML framework with various python runtime.",
     "enable": true,
     "skipTests": false
 }
