@@ -1,4 +1,4 @@
-# caffe2
+# caffe2 Docker image
 
 Caffe2 ML framework with various python runtime.
 

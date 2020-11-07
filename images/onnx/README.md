@@ -1,4 +1,4 @@
-# onnx
+# onnx Docker image
 
 Onnx library for various python runtime.
 

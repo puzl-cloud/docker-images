@@ -1,4 +1,4 @@
-# r-notebook
+# r-notebook Docker image
 
 Jupyter Lab with R kernel.
 

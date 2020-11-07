@@ -1,4 +1,4 @@
-# tensorflowjs
+# tensorflowjs Docker image
 
 Tensorflow (version 2) ML framework with node.js runtime.
 

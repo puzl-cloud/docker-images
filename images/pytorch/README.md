@@ -1,4 +1,4 @@
-# pytorch
+# pytorch Docker image
 
 Pytorch ML framework with various python runtime.
 

@@ -1,4 +1,4 @@
-# h2o4gpu
+# h2o4gpu Docker image
 
 H2O ML framework with GPU support and various python runtime.
 

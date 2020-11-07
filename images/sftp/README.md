@@ -1,4 +1,4 @@
-# sftp
+# sftp Docker image
 
 SSH server to provide non-root access to container in a runtime.
 

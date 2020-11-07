@@ -1,4 +1,4 @@
-# fastai
+# fastai Docker image
 
 Fast.ai ML framework with various python runtime.
 

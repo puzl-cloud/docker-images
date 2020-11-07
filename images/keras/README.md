@@ -1,4 +1,4 @@
-# keras
+# keras Docker image
 
 Keras ML framework with various python runtime.
 

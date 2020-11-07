@@ -1,4 +1,4 @@
-# xgboost
+# xgboost Docker image
 
 Xgboost ML library for various python runtime.
 

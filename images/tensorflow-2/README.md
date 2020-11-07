@@ -1,4 +1,4 @@
-# tensorflow-2
+# tensorflow-2 Docker image
 
 Tensorflow (version 2) ML framework with various python runtime.
 

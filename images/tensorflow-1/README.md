@@ -1,4 +1,4 @@
-# tensorflow-1
+# tensorflow-1 Docker image
 
 Tensorflow (version 1) ML framework with various python runtime.
 
