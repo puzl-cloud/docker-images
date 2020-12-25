@@ -9,3 +9,4 @@ cython
 typing
 matplotlib
 jupyter_contrib_nbextensions
+pandas

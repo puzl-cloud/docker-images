@@ -20,5 +20,3 @@ Non-root Docker image used by puzl.ee [cloud Kubernetes](https://puzl.ee) servic
 - [torch](https://pypi.org/project/torch/), version 1.6.0
 - [torchvision](https://pypi.org/project/torchvision/), version 0.7.0
 - [jupyterlab](https://pypi.org/project/jupyterlab/)
-
-

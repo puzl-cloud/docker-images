@@ -18,5 +18,3 @@ Non-root Docker image used by puzl.ee [cloud Kubernetes](https://puzl.ee) servic
 ### Python
 - [jupyterlab](https://pypi.org/project/jupyterlab/)
 - [h2o4gpu](https://pypi.org/project/h2o4gpu/), version 0.4.1
-
-
