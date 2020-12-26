@@ -17,4 +17,3 @@ Non-root Docker image used by puzl.ee [cloud Kubernetes](https://puzl.ee) servic
 
 - [@tensorflow/tfjs](https://www.npmjs.com/package/@tensorflow/tfjs/), version 2.0.1
 - [@tensorflow/tfjs-node-gpu](https://www.npmjs.com/package/@tensorflow/tfjs-node-gpu/), version 2.0.1
-
