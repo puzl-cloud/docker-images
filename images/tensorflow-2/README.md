@@ -18,3 +18,4 @@ Non-root Docker image used by puzl.ee [cloud Kubernetes](https://puzl.ee) servic
 ### Python
 - [tensorflow-gpu](https://pypi.org/project/tensorflow-gpu/), version 2.3.0
 - [jupyterlab](https://pypi.org/project/jupyterlab/)
+

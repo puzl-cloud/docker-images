@@ -102,7 +102,7 @@ RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 
 RUN ${INTERPRETER} -m pip install \
         tensorflow-gpu==1.15.3 \
-        jupyterlab \
+        jupyterlab==2.2.6 \
     && ${INTERPRETER} -m pip cache purge
 
 RUN ${INTERPRETER} -m pip install --upgrade --force-reinstall \
