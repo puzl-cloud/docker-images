@@ -13,6 +13,7 @@
         },
         {
             "name": "jupyterlab",
+            "version": "2.2.6",
             "type": "pip"
         },
         {
