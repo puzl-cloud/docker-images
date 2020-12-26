@@ -20,3 +20,4 @@ Non-root Docker image used by puzl.ee [cloud Kubernetes](https://puzl.ee) servic
 - [torchvision](https://pypi.org/project/torchvision/), version 0.7.0
 - [fastai](https://pypi.org/project/fastai/), version 2.0.8
 - [jupyterlab](https://pypi.org/project/jupyterlab/)
+
