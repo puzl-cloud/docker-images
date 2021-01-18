@@ -71,7 +71,7 @@ update_db() {
   for image_full_path in ${repo_path}/images/*; do
     local image_name="$(echo ${image_full_path} | sed 's/.*\///g')"
     local repo="${image_repo}/${image_name}"
-    local image_tag="$(jq -r '.image.tagPrefix' ${image_full_path}/metadata.json)"
+    local image_tag="$(jq -r '.image.tagPrefix' ${image_full_path}/metadata.json)-g$(cat ${repo_path}/globals/version)-$(jq -r '.image.version' ${image_full_path}/metadata.json)"
     local icon_url="$(jq -r '.iconUrl' ${image_full_path}/metadata.json)"
     local description="$(jq -r '.description' ${image_full_path}/metadata.json)"
     local enable_img="$(jq -r '.enable' ${image_full_path}/metadata.json)"
