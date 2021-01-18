@@ -2,6 +2,18 @@
 
 set -e
 
+function docker_tag_exists() {
+    image="${1}"
+    tag="${2}"
+    curl \
+      --connect-timeout 10 \
+      --max-time 15 \
+      --silent \
+      -f \
+      --head \
+      -lL "https://hub.docker.com/v2/repositories/${image}/tags/${tag}/" > /dev/null
+}
+
 run_publish_image() {
   local -r image_path="${1:?missing_chart_name}"
   local -r image_name="$(echo ${image_path} | sed 's/.*\///g')"
@@ -19,6 +31,11 @@ run_publish_image() {
 
   # Login into Docker repository
   echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+
+  if ! docker_tag_exists "${image_repo}/${image_name}" "${image_tag}-${interpreter}"; then
+    echo "Tag ${image_tag}-${interpreter} in image ${image_repo}/${image_name} already exist. Aborted!"
+    exit 1
+  fi
 
   if jq -r '.interpreters[]' ${image_full_path}/metadata.json > /dev/null 2>&1; then
     for interpreter in $(jq -r '.interpreters[]' ${image_full_path}/metadata.json); do
