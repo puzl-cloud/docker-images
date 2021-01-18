@@ -1,6 +1,7 @@
 {
     "sourceImage":"nvidia/cuda",
     "sourceTag":"10.1-cudnn7-devel-ubuntu18.04",
+    "version": "1.0.0",
     "interpreters": [
         "python3.8"
     ],

@@ -109,7 +109,7 @@ RUN rm -rf /usr/local/bin/pip3 \
 RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 
 RUN ${INTERPRETER} -m pip install \
-        jupyterlab==2.2.6 \
+        jupyterlab==3.0.5 \
         h2o4gpu==0.4.1 \
     && ${INTERPRETER} -m pip cache purge
 

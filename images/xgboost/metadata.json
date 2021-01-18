@@ -1,6 +1,7 @@
 {
     "sourceImage":"tensorflow/tensorflow",
-    "sourceTag":"2.3.0-gpu",
+    "sourceTag":"2.3.2-gpu",
+    "version": "1.0.0",
     "interpreters": [
         "python3.6",
         "python3.7",
@@ -9,7 +10,7 @@
     "packages": [
         {
             "name": "tensorflow-gpu",
-            "version": "2.3.0",
+            "version": "2.3.2",
             "type": "pip"
         },
         {
@@ -19,7 +20,7 @@
         },
         {
             "name": "jupyterlab",
-            "version": "2.2.6",
+            "version": "3.0.5",
             "type": "pip"
         },
         {

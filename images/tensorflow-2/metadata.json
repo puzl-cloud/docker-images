@@ -1,7 +1,7 @@
 {
     "sourceImage":"tensorflow/tensorflow",
-    "sourceTag":"2.4.0-gpu",
-    "version": "1.0.1", 
+    "sourceTag":"2.3.2-gpu",
+    "version": "1.0.0", 
     "interpreters": [
         "python3.6",
         "python3.7",
@@ -10,7 +10,7 @@
     "packages": [
         {
             "name": "tensorflow-gpu",
-            "version": "2.4.0",
+            "version": "2.3.2",
             "type": "pip"
         },
         {
@@ -36,7 +36,7 @@
         }
     ],
     "image": {
-        "tagPrefix": "2.4.0-cuda11-cudnn8-jupyter"
+        "tagPrefix": "2.3.2-cuda10.1-cudnn7-jupyter"
     },
     "iconUrl": "https://static.puzl.ee/images/docker-images/tensorflow/TF_FullColor_Horizontal.svg",
     "description": "Tensorflow (version 2) ML framework with various python runtime.",

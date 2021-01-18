@@ -1,6 +1,7 @@
 {
     "sourceImage":"nvidia/cuda",
     "sourceTag":"10.1-cudnn7-devel-ubuntu18.04",
+    "version": "1.0.0",
     "interpreters": [
         "python3.6",
         "python3.7",
@@ -19,7 +20,7 @@
         },
         {
             "name": "jupyterlab",
-            "version": "2.2.6",
+            "version": "3.0.5",
             "type": "pip"
         },
         {

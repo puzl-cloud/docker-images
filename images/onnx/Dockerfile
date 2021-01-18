@@ -104,7 +104,7 @@ RUN ${INTERPRETER} -m pip install \
         torch==1.6.0 \
         torchvision==0.7.0 \
         onnx \
-        jupyterlab==2.2.6 \
+        jupyterlab==3.0.5 \
     && ${INTERPRETER} -m pip cache purge
 
 RUN ${INTERPRETER} -m pip install --upgrade --force-reinstall \

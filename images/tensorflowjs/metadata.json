@@ -1,6 +1,7 @@
 {
     "sourceImage":"nvidia/cuda",
     "sourceTag":"10.0-base-ubuntu18.04",
+    "version": "1.0.0",
     "interpreters": [
         "nodejs12"
     ],

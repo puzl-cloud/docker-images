@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:2.4.0-gpu
+FROM tensorflow/tensorflow:2.3.2-gpu
 
 ARG INTERPRETER
 
@@ -101,7 +101,7 @@ RUN rm -rf /usr/local/bin/pip3 \
 RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 
 RUN ${INTERPRETER} -m pip install \
-        tensorflow-gpu==2.4.0 \
+        tensorflow-gpu==2.3.2 \
         jupyterlab==3.0.5 \
     && ${INTERPRETER} -m pip cache purge
 
