@@ -7,7 +7,7 @@ run_publish_image() {
   local -r image_name="$(echo ${image_path} | sed 's/.*\///g')"
   local -r image_full_path="$(git rev-parse --show-toplevel)"/"${image_path}"
   local -r image_repo="$(jq -r '.repository.name' globals/main.json)"
-  local image_tag="$(jq -r '.image.tagPrefix' ${image_full_path}/metadata.json)-g$(cat ${repo_path}/globals/version)-$(jq -r '.image.version' ${image_full_path}/metadata.json)"
+  local image_tag="$(jq -r '.image.tagPrefix' ${image_full_path}/metadata.json)-g$(cat ${repo_path}/globals/version)-$(jq -r '.version' ${image_full_path}/metadata.json)"
   local interpreter_version
   local image
 
