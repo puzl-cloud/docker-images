@@ -1,14 +1,14 @@
 {
     "sourceImage":"nvidia/cuda",
     "sourceTag":"10.1-cudnn7-devel-ubuntu18.04",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "interpreters": [
         "python3.8"
     ],
     "packages": [
         {
             "name": "jupyterlab",
-            "version": "2.2.6",
+            "version": "3.0.5",
             "type": "pip"
         },
         {
