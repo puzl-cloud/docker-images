@@ -35,7 +35,7 @@ run_publish_image() {
   if jq -r '.interpreters[]' ${image_full_path}/metadata.json > /dev/null 2>&1; then
     for interpreter in $(jq -r '.interpreters[]' ${image_full_path}/metadata.json); do
       echo "interpreter: ${interpreter}"
-      if ! docker_tag_exists "${image_repo}/${image_name}" "${image_tag}-${interpreter}"; then
+      if docker_tag_exists "${image_repo}/${image_name}" "${image_tag}-${interpreter}"; then
         echo "Tag ${image_tag}-${interpreter} in image ${image_repo}/${image_name} already exist. Aborted!"
         exit 1
       fi
