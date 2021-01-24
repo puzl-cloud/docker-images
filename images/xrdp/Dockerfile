@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND="noninteractive"
 
 RUN sed -i -E 's/^# deb-src /deb-src /g' /etc/apt/sources.list \
     && apt-get update \
-    && DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends \
+    && apt-get install -y --no-install-recommends \
         build-essential \
         dpkg-dev \
         git \
