@@ -72,7 +72,6 @@ COPY template/configs/sesman.ini /etc/xrdp/sesman.ini
 {{ required.install_pip() }}
 {{ required.create_link() }}
 {{ required.install_default_pip_package() }}
-{{ required.install_pip_package(packages) }}
 {{ required.clean_up() }}
 {{ docker.expose(3389) }}
 {{ docker.workdir("/tmp") }}

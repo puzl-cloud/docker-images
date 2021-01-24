@@ -150,9 +150,6 @@ RUN rm -rf /usr/local/bin/pip3 \
 
 RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 
-RUN ${INTERPRETER} -m pip install \
-    && ${INTERPRETER} -m pip cache purge
-
 RUN rm -rf \
       /var/cache/debconf \
       /tmp/*
