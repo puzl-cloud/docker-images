@@ -1,6 +1,6 @@
 FROM ubuntu:18.04 as builder
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 RUN sed -i -E 's/^# deb-src /deb-src /g' /etc/apt/sources.list \
     && apt-get update \
@@ -14,14 +14,15 @@ RUN sed -i -E 's/^# deb-src /deb-src /g' /etc/apt/sources.list \
     && apt-get source pulseaudio \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /pulseaudio-"$(pulseaudio --version | awk '{print $2}')"
+RUN mv /pulseaudio-"$(pulseaudio --version | awk '{print $2}')" /pulseaudio
+WORKDIR /pulseaudio
 RUN ./configure
 
 RUN git clone https://github.com/neutrinolabs/pulseaudio-module-xrdp.git /pulseaudio-module-xrdp
 
 WORKDIR /pulseaudio-module-xrdp
 RUN ./bootstrap \
-    && ./configure PULSE_DIR=/pulseaudio-"$(pulseaudio --version | awk '{print $2}')" \
+    && ./configure PULSE_DIR=/pulseaudio \
     && make \
     && make install
 
