@@ -4,3 +4,7 @@ ENV USER=ubuntu \
     GID=1000 \
     PATH="${PATH}:/opt/conda/bin"
 {% endmacro %}
+
+{%- macro noninteractive() -%}
+ENV DEBIAN_FRONTEND="noninteractive"
+{% endmacro %}

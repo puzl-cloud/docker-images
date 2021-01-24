@@ -2,6 +2,8 @@ FROM ubuntu:18.04 as builder
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+ENV DEBIAN_FRONTEND="noninteractive"
+
 RUN sed -i -E 's/^# deb-src /deb-src /g' /etc/apt/sources.list \
     && apt-get update \
     && DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends \
@@ -39,6 +41,8 @@ ENV USER=ubuntu \
     UID=1000 \
     GID=1000 \
     PATH="${PATH}:/opt/conda/bin"
+
+ENV DEBIAN_FRONTEND="noninteractive"
 
 SHELL ["/bin/bash", "-c"]
 
