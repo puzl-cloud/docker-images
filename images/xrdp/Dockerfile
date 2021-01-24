@@ -1,4 +1,6 @@
 FROM ubuntu:18.04 as builder
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 
 RUN sed -i -E 's/^# deb-src /deb-src /g' /etc/apt/sources.list \
     && apt-get update \
@@ -12,13 +14,14 @@ RUN sed -i -E 's/^# deb-src /deb-src /g' /etc/apt/sources.list \
     && apt-get source pulseaudio \
     && rm -rf /var/lib/apt/lists/*
 
-RUN cd /pulseaudio-$(pulseaudio --version | awk '{print $2}') \
-    && ./configure
+WORKDIR /pulseaudio-"$(pulseaudio --version | awk '{print $2}')"
+RUN ./configure
 
-RUN git clone https://github.com/neutrinolabs/pulseaudio-module-xrdp.git /pulseaudio-module-xrdp \
-    && cd /pulseaudio-module-xrdp \
-    && ./bootstrap \
-    && ./configure PULSE_DIR=/pulseaudio-$(pulseaudio --version | awk '{print $2}') \
+RUN git clone https://github.com/neutrinolabs/pulseaudio-module-xrdp.git /pulseaudio-module-xrdp
+
+WORKDIR /pulseaudio-module-xrdp
+RUN ./bootstrap \
+    && ./configure PULSE_DIR=/pulseaudio-"$(pulseaudio --version | awk '{print $2}')" \
     && make \
     && make install
 
@@ -79,7 +82,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN sed -i -E 's/^; autospawn =.*/autospawn = yes/' /etc/pulse/client.conf \
-    && [ -f /etc/pulse/client.conf.d/00-disable-autospawn.conf ] && sed -i -E 's/^(autospawn=.*)/# \1/' /etc/pulse/client.conf.d/00-disable-autospawn.conf || :
+    && if [ -f /etc/pulse/client.conf.d/00-disable-autospawn.conf ];then sed -i -E 's/^(autospawn=.*)/# \1/' /etc/pulse/client.conf.d/00-disable-autospawn.conf; fi
 
 COPY --from=builder /usr/lib/pulse-*/modules/module-xrdp-sink.so /usr/lib/pulse-*/modules/module-xrdp-source.so /var/lib/xrdp-pulseaudio-installer/
 COPY sesman.ini /etc/xrdp/sesman.ini
