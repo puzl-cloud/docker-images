@@ -67,8 +67,8 @@ RUN rm -f /etc/ssh/ssh_host_*key* \
 
 {%- macro clean_up() -%}
 RUN rm -rf \
-        /var/cache/debconf \
-        /tmp/*
+      /var/cache/debconf \
+      /tmp/*
 {% endmacro %}
 
 {%- macro create_link() -%}

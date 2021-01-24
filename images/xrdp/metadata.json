@@ -1,0 +1,28 @@
+{
+    "sourceImage":"nvidia/cuda",
+    "sourceTag":"10.2-cudnn7-devel-ubuntu18.04",
+    "version": "1.0.0",
+    "interpreters": [
+        "python3.8"
+    ],
+    "packages": [
+        {
+            "name": "conda",
+            "type": "os"
+        },
+        {
+            "name": "xrdp",
+            "type": "os"
+        },
+        {
+            "name": "rsync",
+            "type": "os"
+        }
+    ],
+    "image": {
+        "tagPrefix": "10.2-cudnn7"
+    },
+    "description": "xrdp provides a graphical login to remote machines using Microsoft Remote Desktop Protocol (RDP)",
+    "enable": true,
+    "skipTests": false
+}

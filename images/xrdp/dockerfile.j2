@@ -1,0 +1,75 @@
+{%- import "template/dockerfile.j2" as docker -%}
+{%- import "template/environment.j2" as env -%}
+{%- import "template/configs.j2" as configs -%}
+{%- import "template/required.j2" as required -%}
+
+FROM ubuntu:18.04 as builder
+
+RUN sed -i -E 's/^# deb-src /deb-src /g' /etc/apt/sources.list \
+    && apt-get update \
+    && DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends \
+        build-essential \
+        dpkg-dev \
+        git \
+        libpulse-dev \
+        pulseaudio \
+    && apt-get build-dep -y pulseaudio \
+    && apt-get source pulseaudio \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN cd /pulseaudio-$(pulseaudio --version | awk '{print $2}') \
+    && ./configure
+
+RUN git clone https://github.com/neutrinolabs/pulseaudio-module-xrdp.git /pulseaudio-module-xrdp \
+    && cd /pulseaudio-module-xrdp \
+    && ./bootstrap \
+    && ./configure PULSE_DIR=/pulseaudio-$(pulseaudio --version | awk '{print $2}') \
+    && make \
+    && make install
+
+{{ docker.fromOfficial(sourceImage, sourceTag) }}
+{{ docker.arg("INTERPRETER") }}
+{{ docker.arg("INTERPRETER_VERSION") }}
+{{ docker.label() }}
+{{ env.general() }}
+{{ docker.shell('["/bin/bash", "-c"]') }}
+{{ required.install_main_pakage() }}
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        dbus-x11 \
+        firefox \
+        git \
+        pavucontrol \
+        pulseaudio \
+        pulseaudio-utils \
+        x11-xserver-utils \
+        xfce4 \
+        xfce4-goodies \
+        xfce4-pulseaudio-plugin \
+        xorgxrdp \
+        xrdp \
+        xubuntu-icon-theme \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN sed -i -E 's/^; autospawn =.*/autospawn = yes/' /etc/pulse/client.conf \
+    && [ -f /etc/pulse/client.conf.d/00-disable-autospawn.conf ] && sed -i -E 's/^(autospawn=.*)/# \1/' /etc/pulse/client.conf.d/00-disable-autospawn.conf || :
+
+COPY --from=builder /usr/lib/pulse-*/modules/module-xrdp-sink.so /usr/lib/pulse-*/modules/module-xrdp-source.so /var/lib/xrdp-pulseaudio-installer/
+COPY sesman.ini /etc/xrdp/sesman.ini
+
+{{ required.install_tini("v0.19.0") }}
+{{ required.install_python() }}
+{{ required.add_user() }}
+{{ configs.general() }}
+{{ required.configure() }}
+{{ required.install_conda() }}
+{{ required.install_pip() }}
+{{ required.create_link() }}
+{{ required.install_default_pip_package() }}
+{{ required.install_pip_package(packages) }}
+{{ required.clean_up() }}
+{{ docker.expose(3389) }}
+{{ docker.workdir("/tmp") }}
+{{ docker.user("$UID") }}
+{{ docker.cmd('["/bin/sh", "-c", "exit 0"]') }}
