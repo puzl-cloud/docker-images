@@ -41,6 +41,7 @@ RUN ./bootstrap \
 {{ required.install_main_pakage() }}
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
+        crudini \
         dbus-x11 \
         firefox \
         git \
