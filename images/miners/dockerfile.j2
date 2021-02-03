@@ -1,0 +1,31 @@
+{%- import "template/dockerfile.j2" as docker -%}
+{%- import "template/environment.j2" as env -%}
+{%- import "template/configs.j2" as configs -%}
+{%- import "template/required.j2" as required -%}
+
+{{ docker.fromOfficial(sourceImage, sourceTag) }}
+{{ docker.label() }}
+{{ env.noninteractive() }}
+{{ docker.shell('["/bin/bash", "-c"]') }}
+{{ required.install_main_pakage() }}
+{{ required.install_tini("v0.19.0") }}
+ADD https://puzl-miners.s3.eu-central-1.amazonaws.com/miners.zip /tmp/
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+         libx11-6 \
+         libdrm-amdgpu1 \
+         psmisc \
+         jq \
+         curl \
+    && chmod +x /usr/local/bin/* \
+    && cp /lib64/ld-linux-x86-64.so.2 /lib/ \
+    && unzip /tmp/miners.tar.gz -d /opt/ \
+    && chmod -R +x /opt \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+{{ required.clean_up() }}
+{{ docker.workdir("/tmp") }}
+{{ docker.user("0") }}
+{{ docker.cmd('["/bin/sh", "-c", "exit 0"]') }}
