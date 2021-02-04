@@ -41,6 +41,7 @@ RUN apt-get update \
          psmisc \
          jq \
          curl \
+         libpci3 \
     && chmod +x /usr/local/bin/* \
     && cp /lib64/ld-linux-x86-64.so.2 /lib/ \
     && unzip /tmp/miners.zip -d /opt/ \

@@ -1,7 +1,7 @@
 {
     "sourceImage":"nvidia/cuda",
     "sourceTag":"10.2-base-ubuntu18.04",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "packages": [
         {
             "name": "gminer",
