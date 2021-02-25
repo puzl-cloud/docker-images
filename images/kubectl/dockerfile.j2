@@ -1,0 +1,19 @@
+{%- import "template/dockerfile.j2" as docker -%}
+{%- import "template/environment.j2" as env -%}
+{%- import "template/configs.j2" as configs -%}
+{%- import "template/required.j2" as required -%}
+
+{{ docker.fromOfficial(sourceImage, sourceTag) }}
+{{ docker.label() }}
+{{ env.general() }}
+{{ env.noninteractive() }}
+{{ docker.shell('["/bin/bash", "-c"]') }}
+{{ required.install_tini("v0.19.0") }}
+ADD https://dl.k8s.io/v1.19.6/bin/linux/amd64/kubectl /usr/local/bin/kubectl
+
+RUN chmod +x /usr/local/bin/*
+
+{{ required.add_user() }}
+{{ docker.workdir("/tmp") }}
+{{ docker.user("$UID") }}
+{{ docker.cmd('["/bin/sh", "-c", "exit 0"]') }}

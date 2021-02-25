@@ -1,0 +1,17 @@
+{
+    "sourceImage":"ubuntu",
+    "sourceTag":"20.04",
+    "version": "1.19.6",
+    "packages": [
+        {
+            "name": "kubectl",
+            "type": "os"
+        }
+    ],
+    "image": {
+        "tagPrefix": "1.19.6"
+    },
+    "description": "The kubectl command line tool lets you control Kubernetes clusters",
+    "enable": false,
+    "skipTests": true
+}
