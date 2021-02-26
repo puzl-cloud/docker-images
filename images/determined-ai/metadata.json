@@ -1,0 +1,21 @@
+{
+    "sourceImage":"python",
+    "sourceTag":"3.7-slim",
+    "version": "0.14.2",
+    "interpreters": [
+        "python3.7"
+    ],
+    "packages": [
+        {
+            "name": "determined-common",
+            "version": "0.14.2",
+            "type": "pip"
+        }
+    ],
+    "image": {
+        "tagPrefix": "0.14.2"
+    },
+    "description": "Determined library image",
+    "enable": false,
+    "skipTests": true
+}
