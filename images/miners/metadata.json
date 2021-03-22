@@ -1,7 +1,7 @@
 {
     "sourceImage":"nvidia/cuda",
     "sourceTag":"10.2-base-ubuntu18.04",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "packages": [
         {
             "name": "gminer",
@@ -16,6 +16,6 @@
         "tagPrefix": "10.2-ubuntu18.04"
     },
     "description": "Several miners for mining cryptocurrencies",
-    "enable": true,
+    "enable": false,
     "skipTests": true
 }
