@@ -32,6 +32,11 @@
         {
             "name": "rsync",
             "type": "os"
+        },
+        {
+            "name": "cuda",
+            "version": 10,
+            "type": "os"
         }
     ],
     "image": {
