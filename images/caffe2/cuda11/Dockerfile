@@ -12,6 +12,8 @@ ENV USER=ubuntu \
     GID=1000 \
     PATH="${PATH}:/opt/conda/bin"
 
+ENV DEBIAN_FRONTEND="noninteractive"
+
 SHELL ["/bin/bash", "-c"]
 
 RUN apt-get update \
