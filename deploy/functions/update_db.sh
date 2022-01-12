@@ -68,8 +68,16 @@ update_db() {
   # Login into Docker repository
   echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
 
-  for image_full_path in ${repo_path}/images/*; do
-    local image_name="$(echo ${image_full_path} | sed 's/.*\///g')"
+  for image_full_path in $(find images/* -maxdepth 2 -type d); do
+    if [ ! -f ${image_full_path}/metadata.json ]; then
+      continue
+    fi
+    if [[ "$(jq -r '.name' ${image_full_path}/metadata.json)" == "null" ]]; then
+      echo "Error: Empty image name"
+      exit 1
+    else
+      local image_name="$(jq -r '.name' ${image_full_path}/metadata.json)"
+    fi
     local repo="${image_repo}/${image_name}"
     if [[ "$(jq -r '.version' ${image_full_path}/metadata.json)" == "null" ]]; then
       local image_tag="$(jq -r '.image.tagPrefix' ${image_full_path}/metadata.json)"
@@ -124,5 +132,6 @@ update_db() {
     fi
   done
   
-  hook::update_hasura "${HASURA_QUERY}"
+  #hook::update_hasura "${HASURA_QUERY}"
+  echo ${HASURA_QUERY}
 }

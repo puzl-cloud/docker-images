@@ -11,7 +11,8 @@ echo "files_to_push: ${files_to_push}"
 . "${repo_path}/deploy/functions/dockertest.sh"
 . "${repo_path}/deploy/functions/output.sh"
 
-for image_path in $( cut -d'/' -f1,2 <<< "${files_to_push}" | uniq ); do
+
+for image_path in $( echo "${files_to_push}"| sed 's#/[^/]*$##' | uniq ); do
   if [[ $image_path = images/* ]]; then
     skip_test=$(jq -r '.skipTests' $image_path/metadata.json)
     if [[ "${skip_test}" == "false" ]]; then

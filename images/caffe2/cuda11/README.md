@@ -4,9 +4,9 @@ Caffe2 ML framework with various python runtime.
 
 Non-root Docker image used by puzl.ee [cloud Kubernetes](https://puzl.ee) service. Based on [official cuda](https://hub.docker.com/r/nvidia/cuda) Docker image.
 ## Supported languages and interpreter versions
-- python3.6
 - python3.7
 - python3.8
+- python3.9
 
 ## Installed packages
 ### OS
@@ -17,7 +17,7 @@ Non-root Docker image used by puzl.ee [cloud Kubernetes](https://puzl.ee) servic
 - rsync
 
 ### Python
-- [torch](https://pypi.org/project/torch/), version 1.6.0
-- [torchvision](https://pypi.org/project/torchvision/), version 0.7.0
-- [jupyterlab](https://pypi.org/project/jupyterlab/)
+- [torch](https://pypi.org/project/torch/), version 1.10.1
+- [torchvision](https://pypi.org/project/torchvision/), version 0.11.0
+- [jupyterlab](https://pypi.org/project/jupyterlab/), version 3.2.5
 

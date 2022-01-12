@@ -4,9 +4,15 @@ set -e
 
 run_docker_image_test() {
   local -r image_path="${1:?missing_chart_name}"
-  local -r image_name="$(echo ${image_path} | sed 's/.*\///g')"
   local -r image_full_path="$(git rev-parse --show-toplevel)"/"${image_path}"
   local -r image_repo="$(jq -r '.repository.name' globals/main.json)"
+  if [[ "$(jq -r '.name' ${image_full_path}/metadata.json)" == "null" ]]; then
+    echo "Error: Empty image name"
+    exit 1
+  else
+    local image_name="$(jq -r '.name' ${image_full_path}/metadata.json)"
+  fi
+
   if [[ "$(jq -r '.version' ${image_full_path}/metadata.json)" == "null" ]]; then
     local image_tag="$(jq -r '.image.tagPrefix' ${image_full_path}/metadata.json)"
   else
