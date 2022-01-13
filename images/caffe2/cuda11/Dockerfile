@@ -103,6 +103,7 @@ RUN rm -rf /usr/local/bin/pip3 \
 RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 
 RUN ${INTERPRETER} -m pip install \
+  -f https://download.pytorch.org/whl/cu113/torch_stable.html \
         torch==1.10.1+cu113 \
         torchvision==0.11.2+cu113 \
         torchaudio==0.10.1+cu113 \
@@ -110,7 +111,7 @@ RUN ${INTERPRETER} -m pip install \
     && ${INTERPRETER} -m pip cache purge
 
 RUN ${INTERPRETER} -m pip install --upgrade --force-reinstall \
-      nbconvert==5.6.1 \
+      nbconvert==6.4.0 \
     && jupyter contrib nbextension install --sys-prefix
 
 RUN curl https://rclone.org/install.sh -o ~/install.sh \
