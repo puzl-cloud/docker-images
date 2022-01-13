@@ -101,7 +101,6 @@ RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 
 {%- macro install_pip_package(packages) -%}
 RUN ${INTERPRETER} -m pip install \
-  -f https://download.pytorch.org/whl/cu113/torch_stable.html \
   {%- for package in packages -%}
     {%- if package.type == "pip" -%}
       {% if package.version is defined %}
@@ -111,6 +110,7 @@ RUN ${INTERPRETER} -m pip install \
       {%- endif %}
     {%- endif %}
   {%- endfor %}
+        -f https://download.pytorch.org/whl/cu113/torch_stable.html \
     && ${INTERPRETER} -m pip cache purge
 {% endmacro %}
 
