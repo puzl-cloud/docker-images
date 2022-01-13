@@ -1,4 +1,4 @@
-FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
+FROM nvidia/cuda:11.3.1-cudnn8-devel-ubuntu20.04
 
 ARG INTERPRETER
 
@@ -103,10 +103,11 @@ RUN rm -rf /usr/local/bin/pip3 \
 RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 
 RUN ${INTERPRETER} -m pip install \
-        torch==1.6.0 \
-        torchvision==0.7.0 \
-        fastai==2.0.8 \
-        jupyterlab==3.0.5 \
+        torch==1.10.1+cu113 \
+        torchvision==0.11.2+cu113 \
+        torchaudio==0.10.1+cu113 \
+        onnx==1.10.2 \
+        jupyterlab==3.2.5 \
         -f https://download.pytorch.org/whl/cu113/torch_stable.html \
     && ${INTERPRETER} -m pip cache purge
 

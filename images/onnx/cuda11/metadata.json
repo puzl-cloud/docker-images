@@ -1,0 +1,65 @@
+{
+    "name": "onnx",
+    "sourceImage":"nvidia/cuda",
+    "sourceTag":"11.3.1-cudnn8-devel-ubuntu20.04",
+    "version": "1.1.0",
+    "interpreters": [
+        "python3.7",
+        "python3.8"
+    ],
+    "packages": [
+        {
+            "name": "torch",
+            "version": "1.10.1+cu113",
+            "type": "pip"
+        },
+        {
+            "name": "torchvision",
+            "version": "0.11.2+cu113",
+            "type": "pip"
+        },
+        {
+            "name": "torchaudio",
+            "version": "0.10.1+cu113",
+            "type": "pip"
+        },
+        {
+            "name": "onnx",
+            "version": "1.10.2",
+            "type": "pip"
+        },
+        {
+            "name": "jupyterlab",
+            "version": "3.2.5",
+            "type": "pip"
+        },
+        {
+            "name": "rclone",
+            "type": "os"
+        },
+        {
+            "name": "conda",
+            "type": "os"
+        },
+        {
+            "name": "openssh-server",
+            "type": "os"
+        },
+        {
+            "name": "rsync",
+            "type": "os"
+        },
+        {
+            "name": "cuda",
+            "version": 11,
+            "type": "os"
+        }
+    ],
+    "image": {
+        "tagPrefix": "1.10.2-cuda11.3-cudnn8-jupyter"
+    },
+    "iconUrl": "https://static.puzl.ee/images/docker-images/onnx/ONNX-Logo.svg",
+    "description": "Onnx library for various python runtime.",
+    "enable": true,
+    "skipTests": false
+}

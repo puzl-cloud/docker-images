@@ -105,10 +105,11 @@ RUN ${INTERPRETER} -m pip install \
         torchvision==0.7.0 \
         onnx \
         jupyterlab==3.0.5 \
+        -f https://download.pytorch.org/whl/cu113/torch_stable.html \
     && ${INTERPRETER} -m pip cache purge
 
 RUN ${INTERPRETER} -m pip install --upgrade --force-reinstall \
-      nbconvert==5.6.1 \
+      nbconvert==6.4.0 \
     && jupyter contrib nbextension install --sys-prefix
 
 RUN curl https://rclone.org/install.sh -o ~/install.sh \
@@ -117,8 +118,8 @@ RUN curl https://rclone.org/install.sh -o ~/install.sh \
     && rm ~/install.sh
 
 RUN rm -rf \
-        /var/cache/debconf \
-        /tmp/*
+      /var/cache/debconf \
+      /tmp/*
 
 EXPOSE 2222
 
