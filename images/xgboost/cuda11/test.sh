@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -e
+
+#Check python
+python --version && python3 --version
+
+#Check jupyter 
+jupyter --version
+
+#Check pip
+pip --version
+
+#Check conda
+conda --version
+
+#Check rclone
+rclone --version
+
+#Check ssh
+ssh -V
+
+#Check xgboost
+python -c 'import xgboost as xgb; print(xgb.__version__)' \
+  && python3 -c 'import xgboost as xgb; print(xgb.__version__)'
