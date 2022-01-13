@@ -1,27 +1,12 @@
 {
+    "name": "r-notebook",
     "sourceImage":"nvidia/cuda",
     "sourceTag":"10.1-cudnn7-devel-ubuntu18.04",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "interpreters": [
-        "python3.6",
-        "python3.7",
         "python3.8"
     ],
     "packages": [
-        {
-            "name": "torch",
-            "version": "1.6.0",
-            "type": "pip"
-        },
-        {
-            "name": "torchvision",
-            "version": "0.7.0",
-            "type": "pip"
-        },
-        {
-            "name": "onnx",
-            "type": "pip"
-        },
         {
             "name": "jupyterlab",
             "version": "3.0.5",
@@ -29,10 +14,6 @@
         },
         {
             "name": "rclone",
-            "type": "os"
-        },
-        {
-            "name": "conda",
             "type": "os"
         },
         {
@@ -50,10 +31,10 @@
         }
     ],
     "image": {
-        "tagPrefix": "1.7.0-cuda10.1-cudnn7-jupyter"
+        "tagPrefix": "latest"
     },
-    "iconUrl": "https://static.puzl.ee/images/docker-images/onnx/ONNX-Logo.svg",
-    "description": "Onnx library for various python runtime.",
+    "iconUrl": "https://static.puzl.ee/images/docker-images/r/r-logo.svg",
+    "description": "Jupyter Lab with R kernel.",
     "enable": true,
     "skipTests": false
 }

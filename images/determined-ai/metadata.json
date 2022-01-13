@@ -1,4 +1,5 @@
 {
+    "name": "determined-ai",
     "sourceImage":"python",
     "sourceTag":"3.7-slim",
     "version": "0.14.2",

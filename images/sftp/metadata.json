@@ -1,4 +1,5 @@
 {
+    "name": "sftp",
     "sourceImage": "ubuntu",
     "sourceTag": "18.04",
     "packages": [

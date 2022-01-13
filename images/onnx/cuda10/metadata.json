@@ -1,6 +1,7 @@
 {
-    "sourceImage":"tensorflow/tensorflow",
-    "sourceTag":"2.3.2-gpu",
+    "name": "onnx",
+    "sourceImage":"nvidia/cuda",
+    "sourceTag":"10.1-cudnn7-devel-ubuntu18.04",
     "version": "1.0.0",
     "interpreters": [
         "python3.6",
@@ -9,13 +10,17 @@
     ],
     "packages": [
         {
-            "name": "tensorflow-gpu",
-            "version": "2.3.2",
+            "name": "torch",
+            "version": "1.6.0",
             "type": "pip"
         },
         {
-            "name": "xgboost",
-            "version": "1.2.0",
+            "name": "torchvision",
+            "version": "0.7.0",
+            "type": "pip"
+        },
+        {
+            "name": "onnx",
             "type": "pip"
         },
         {
@@ -46,9 +51,10 @@
         }
     ],
     "image": {
-        "tagPrefix": "1.2.0-cuda10.1-cudnn7-jupyter"
+        "tagPrefix": "1.7.0-cuda10.1-cudnn7-jupyter"
     },
-    "description": "Xgboost ML library for various python runtime.",
+    "iconUrl": "https://static.puzl.ee/images/docker-images/onnx/ONNX-Logo.svg",
+    "description": "Onnx library for various python runtime.",
     "enable": true,
     "skipTests": false
 }

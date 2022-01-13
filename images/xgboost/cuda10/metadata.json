@@ -1,11 +1,24 @@
 {
-    "sourceImage":"nvidia/cuda",
-    "sourceTag":"10.1-cudnn7-devel-ubuntu18.04",
-    "version": "1.0.1",
+    "name": "xgboost",
+    "sourceImage":"tensorflow/tensorflow",
+    "sourceTag":"2.3.2-gpu",
+    "version": "1.0.0",
     "interpreters": [
+        "python3.6",
+        "python3.7",
         "python3.8"
     ],
     "packages": [
+        {
+            "name": "tensorflow-gpu",
+            "version": "2.3.2",
+            "type": "pip"
+        },
+        {
+            "name": "xgboost",
+            "version": "1.2.0",
+            "type": "pip"
+        },
         {
             "name": "jupyterlab",
             "version": "3.0.5",
@@ -13,6 +26,10 @@
         },
         {
             "name": "rclone",
+            "type": "os"
+        },
+        {
+            "name": "conda",
             "type": "os"
         },
         {
@@ -30,10 +47,9 @@
         }
     ],
     "image": {
-        "tagPrefix": "latest"
+        "tagPrefix": "1.2.0-cuda10.1-cudnn7-jupyter"
     },
-    "iconUrl": "https://static.puzl.ee/images/docker-images/r/r-logo.svg",
-    "description": "Jupyter Lab with R kernel.",
+    "description": "Xgboost ML library for various python runtime.",
     "enable": true,
     "skipTests": false
 }

@@ -1,4 +1,5 @@
 {
+    "name": "tensorflow-1",
     "sourceImage":"tensorflow/tensorflow",
     "sourceTag":"1.15.2-gpu-py3-jupyter",
     "version": "1.0.0",

@@ -72,6 +72,7 @@ update_db() {
     if [ ! -f ${image_full_path}/metadata.json ]; then
       continue
     fi
+    echo ${image_full_path}
     if [[ "$(jq -r '.name' ${image_full_path}/metadata.json)" == "null" ]]; then
       echo "Error: Empty image name"
       exit 1
@@ -132,6 +133,6 @@ update_db() {
     fi
   done
   
-  #hook::update_hasura "${HASURA_QUERY}"
-  echo ${HASURA_QUERY}
+  hook::update_hasura "${HASURA_QUERY}"
+  #echo ${HASURA_QUERY}
 }

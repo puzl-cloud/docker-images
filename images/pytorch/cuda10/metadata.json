@@ -1,7 +1,8 @@
 {
-    "sourceImage":"tensorflow/tensorflow",
-    "sourceTag":"2.3.2-gpu",
-    "version": "1.0.0", 
+    "name": "pytorch",
+    "sourceImage":"nvidia/cuda",
+    "sourceTag":"10.1-cudnn7-devel-ubuntu18.04",
+    "version": "1.0.0",
     "interpreters": [
         "python3.6",
         "python3.7",
@@ -9,8 +10,13 @@
     ],
     "packages": [
         {
-            "name": "tensorflow-gpu",
-            "version": "2.3.2",
+            "name": "torch",
+            "version": "1.6.0",
+            "type": "pip"
+        },
+        {
+            "name": "torchvision",
+            "version": "0.7.0",
             "type": "pip"
         },
         {
@@ -41,10 +47,10 @@
         }
     ],
     "image": {
-        "tagPrefix": "2.3.2-cuda10.1-cudnn7-jupyter"
+        "tagPrefix": "1.6-cuda10.1-cudnn7-jupyter"
     },
-    "iconUrl": "https://static.puzl.ee/images/docker-images/tensorflow/TF_FullColor_Horizontal.svg",
-    "description": "Tensorflow (version 2) ML framework with various python runtime.",
+    "iconUrl": "https://static.puzl.ee/images/docker-images/pytorch/pytorch.svg",
+    "description": "Pytorch ML framework with various python runtime.",
     "enable": true,
     "skipTests": false
 }

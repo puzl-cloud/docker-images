@@ -1,4 +1,5 @@
 {
+    "name": "kubectl",
     "sourceImage":"ubuntu",
     "sourceTag":"20.04",
     "version": "1.19.6",
