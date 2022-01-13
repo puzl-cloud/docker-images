@@ -8,6 +8,7 @@
 {{ docker.arg("INTERPRETER_VERSION") }}
 {{ docker.label() }}
 {{ env.general() }}
+{{ env.noninteractive() }}
 {{ docker.shell('["/bin/bash", "-c"]') }}
 {{ required.install_main_pakage() }}
 {{ required.install_tini("v0.19.0") }}
