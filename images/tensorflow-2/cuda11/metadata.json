@@ -1,0 +1,51 @@
+{
+    "name": "tensorflow-2",
+    "sourceImage":"tensorflow/tensorflow",
+    "sourceTag":"2.7.0-gpu",
+    "version": "1.1.0", 
+    "interpreters": [
+        "python3.7",
+        "python3.8",
+        "python3.9"
+    ],
+    "packages": [
+        {
+            "name": "tensorflow-gpu",
+            "version": "2.7.0",
+            "type": "pip"
+        },
+        {
+            "name": "jupyterlab",
+            "version": "3.2.5",
+            "type": "pip"
+        },
+        {
+            "name": "rclone",
+            "type": "os"
+        },
+        {
+            "name": "conda",
+            "type": "os"
+        },
+        {
+            "name": "openssh-server",
+            "type": "os"
+        },
+        {
+            "name": "rsync",
+            "type": "os"
+        },
+        {
+            "name": "cuda",
+            "version": 11,
+            "type": "os"
+        }
+    ],
+    "image": {
+        "tagPrefix": "2.7.0-cuda11.2-cudnn8-jupyter"
+    },
+    "iconUrl": "https://static.puzl.ee/images/docker-images/tensorflow/TF_FullColor_Horizontal.svg",
+    "description": "Tensorflow (version 2) ML framework with various python runtime.",
+    "enable": true,
+    "skipTests": false
+}
