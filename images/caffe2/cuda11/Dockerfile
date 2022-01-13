@@ -103,8 +103,9 @@ RUN rm -rf /usr/local/bin/pip3 \
 RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 
 RUN ${INTERPRETER} -m pip install \
-        torch==1.10.1 \
-        torchvision==0.11.0 \
+        torch==1.10.1+cu113 \
+        torchvision==0.11.2+cu113 \
+        torchaudio==0.10.1+cu113 \
         jupyterlab==3.2.5 \
     && ${INTERPRETER} -m pip cache purge
 

@@ -6,7 +6,6 @@ Non-root Docker image used by puzl.ee [cloud Kubernetes](https://puzl.ee) servic
 ## Supported languages and interpreter versions
 - python3.7
 - python3.8
-- python3.9
 
 ## Installed packages
 ### OS
@@ -17,7 +16,7 @@ Non-root Docker image used by puzl.ee [cloud Kubernetes](https://puzl.ee) servic
 - rsync
 
 ### Python
-- [torch](https://pypi.org/project/torch/), version 1.10.1
-- [torchvision](https://pypi.org/project/torchvision/), version 0.11.0
+- [torch](https://pypi.org/project/torch/), version 1.10.1+cu113
+- [torchvision](https://pypi.org/project/torchvision/), version 0.11.2+cu113
+- [torchvision](https://pypi.org/project/torchaudio/), version 0.10.1+cu113
 - [jupyterlab](https://pypi.org/project/jupyterlab/), version 3.2.5
-
