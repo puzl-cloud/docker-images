@@ -6,11 +6,17 @@ run_docker_image_test() {
   local -r image_path="${1:?missing_chart_name}"
   local -r image_full_path="$(git rev-parse --show-toplevel)"/"${image_path}"
   local -r image_repo="$(jq -r '.repository.name' globals/main.json)"
+  echo "Image path: $image_path"
   if [[ "$(jq -r '.name' ${image_full_path}/metadata.json)" == "null" ]]; then
     echo "Error: Empty image name"
     exit 1
   else
     local image_name="$(jq -r '.name' ${image_full_path}/metadata.json)"
+  fi
+
+  if [[ "$(jq -r '.packages[] | select((.type == "pip") and .version == null)' ${image_full_path}/metadata.json)" != "null" || "$(jq -r '.packages[] | select((.type == "pip") and .version == null)' ${image_full_path}/metadata.json)" != "" ]]; then
+    echo "Error: $image_name have empty version for pip package"
+    exit 1
   fi
 
   if [[ "$(jq -r '.version' ${image_full_path}/metadata.json)" == "null" ]]; then
