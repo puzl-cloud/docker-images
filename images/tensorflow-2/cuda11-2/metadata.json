@@ -1,27 +1,22 @@
 {
-    "name": "xgboost",
+    "name": "tensorflow-2",
     "sourceImage":"tensorflow/tensorflow",
-    "sourceTag":"2.3.2-gpu",
-    "version": "1.0.0",
+    "sourceTag":"2.7.0-gpu",
+    "version": "1.1.0", 
     "interpreters": [
-        "python3.6",
         "python3.7",
-        "python3.8"
+        "python3.8",
+        "python3.9"
     ],
     "packages": [
         {
             "name": "tensorflow-gpu",
-            "version": "2.3.2",
-            "type": "pip"
-        },
-        {
-            "name": "xgboost",
-            "version": "1.2.0",
+            "version": "2.7.0",
             "type": "pip"
         },
         {
             "name": "jupyterlab",
-            "version": "3.0.5",
+            "version": "3.2.5",
             "type": "pip"
         },
         {
@@ -42,14 +37,15 @@
         },
         {
             "name": "cuda",
-            "version": 10,
+            "version": "11.2",
             "type": "os"
         }
     ],
     "image": {
-        "tagPrefix": "1.2.0-cuda10.1-cudnn7-jupyter"
+        "tagPrefix": "2.7.0-cuda11.2-cudnn8-jupyter"
     },
-    "description": "Xgboost ML library for various python runtime.",
+    "iconUrl": "https://static.puzl.ee/images/docker-images/tensorflow/TF_FullColor_Horizontal.svg",
+    "description": "Tensorflow (version 2) ML framework with various python runtime.",
     "enable": true,
     "skipTests": false
 }

@@ -1,27 +1,27 @@
 {
     "name": "keras",
     "sourceImage":"tensorflow/tensorflow",
-    "sourceTag":"2.3.2-gpu",
-    "version": "1.0.0",
+    "sourceTag":"2.7.0-gpu",
+    "version": "1.1.0",
     "interpreters": [
-        "python3.6",
         "python3.7",
-        "python3.8"
+        "python3.8",
+        "python3.9"
     ],
     "packages": [
         {
             "name": "tensorflow-gpu",
-            "version": "2.3.2",
+            "version": "2.7.0",
             "type": "pip"
         },
         {
             "name": "keras",
-            "version": "2.4.3",
+            "version": "2.7.0",
             "type": "pip"
         },
         {
             "name": "jupyterlab",
-            "version": "3.0.5",
+            "version": "3.2.5",
             "type": "pip"
         },
         {
@@ -42,12 +42,12 @@
         },
         {
             "name": "cuda",
-            "version": 10,
+            "version": "11.2",
             "type": "os"
         }
     ],
     "image": {
-        "tagPrefix": "2.4.3-cuda10.1-cudnn7-jupyter"
+        "tagPrefix": "2.7.0-cuda11.2-cudnn8-jupyter"
     },
     "iconUrl": "https://static.puzl.ee/images/docker-images/keras/keras-text.svg",
     "description": "Keras ML framework with various python runtime.",

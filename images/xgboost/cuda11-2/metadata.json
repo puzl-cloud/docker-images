@@ -1,32 +1,28 @@
 {
-    "name": "caffe2",
-    "sourceImage": "nvidia/cuda",
-    "sourceTag": "10.1-cudnn7-devel-ubuntu18.04",
-    "version": "1.0.0",
+    "name": "xgboost",
+    "sourceImage":"tensorflow/tensorflow",
+    "sourceTag":"2.7.0-gpu",
+    "version": "1.1.0",
     "interpreters": [
-        "python3.6",
         "python3.7",
-        "python3.8"
+        "python3.8",
+        "python3.9"
     ],
     "packages": [
         {
-            "name": "torch",
-            "version": "1.6.0",
+            "name": "tensorflow-gpu",
+            "version": "2.7.0",
             "type": "pip"
         },
         {
-            "name": "torchvision",
-            "version": "0.7.0",
+            "name": "xgboost",
+            "version": "1.5.1",
             "type": "pip"
         },
         {
             "name": "jupyterlab",
-            "version": "3.0.5",
+            "version": "3.2.5",
             "type": "pip"
-        },
-        {
-            "name": "caffe2",
-            "type": "os"
         },
         {
             "name": "rclone",
@@ -46,15 +42,14 @@
         },
         {
             "name": "cuda",
-            "version": 10,
+            "version": "11.2",
             "type": "os"
         }
     ],
     "image": {
-        "tagPrefix": "1.6-cuda10.1-cudnn7-jupyter"
+        "tagPrefix": "1.5.1-cuda11.2-cudnn8-jupyter"
     },
-    "iconUrl": "https://static.puzl.ee/images/docker-images/caffe2/caffe2.svg",
-    "description": "Caffe2 ML framework with various python runtime.",
+    "description": "Xgboost ML library for various python runtime.",
     "enable": true,
     "skipTests": false
 }

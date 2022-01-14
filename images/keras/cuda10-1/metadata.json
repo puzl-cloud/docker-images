@@ -1,22 +1,27 @@
 {
-    "name": "tensorflow-2",
+    "name": "keras",
     "sourceImage":"tensorflow/tensorflow",
-    "sourceTag":"2.7.0-gpu",
-    "version": "1.1.0", 
+    "sourceTag":"2.3.2-gpu",
+    "version": "1.0.0",
     "interpreters": [
+        "python3.6",
         "python3.7",
-        "python3.8",
-        "python3.9"
+        "python3.8"
     ],
     "packages": [
         {
             "name": "tensorflow-gpu",
-            "version": "2.7.0",
+            "version": "2.3.2",
+            "type": "pip"
+        },
+        {
+            "name": "keras",
+            "version": "2.4.3",
             "type": "pip"
         },
         {
             "name": "jupyterlab",
-            "version": "3.2.5",
+            "version": "3.0.5",
             "type": "pip"
         },
         {
@@ -37,15 +42,15 @@
         },
         {
             "name": "cuda",
-            "version": 11,
+            "version": "10.1",
             "type": "os"
         }
     ],
     "image": {
-        "tagPrefix": "2.7.0-cuda11.2-cudnn8-jupyter"
+        "tagPrefix": "2.4.3-cuda10.1-cudnn7-jupyter"
     },
-    "iconUrl": "https://static.puzl.ee/images/docker-images/tensorflow/TF_FullColor_Horizontal.svg",
-    "description": "Tensorflow (version 2) ML framework with various python runtime.",
+    "iconUrl": "https://static.puzl.ee/images/docker-images/keras/keras-text.svg",
+    "description": "Keras ML framework with various python runtime.",
     "enable": true,
     "skipTests": false
 }

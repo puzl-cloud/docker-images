@@ -1,5 +1,5 @@
 {
-    "name": "fastai",
+    "name": "pytorch",
     "sourceImage":"nvidia/cuda",
     "sourceTag":"11.3.1-cudnn8-devel-ubuntu20.04",
     "version": "1.1.0",
@@ -21,11 +21,6 @@
         {
             "name": "torchaudio",
             "version": "0.10.1+cu113",
-            "type": "pip"
-        },
-        {
-            "name": "fastai",
-            "version": "2.5.3",
             "type": "pip"
         },
         {
@@ -51,15 +46,15 @@
         },
         {
             "name": "cuda",
-            "version": 11,
+            "version": "11.3",
             "type": "os"
         }
     ],
     "image": {
-        "tagPrefix": "2.5.3-cuda11.3-cudnn8-jupyter"
+        "tagPrefix": "1.10.1-cuda11.3-cudnn8-jupyter"
     },
-    "iconUrl": "https://static.puzl.ee/images/docker-images/fast-ai/fastai-logo.svg",
-    "description": "Fast.ai ML framework with various python runtime.",
+    "iconUrl": "https://static.puzl.ee/images/docker-images/pytorch/pytorch.svg",
+    "description": "Pytorch ML framework with various python runtime.",
     "enable": true,
     "skipTests": false
 }

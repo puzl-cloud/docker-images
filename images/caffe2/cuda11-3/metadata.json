@@ -50,7 +50,7 @@
         },
         {
             "name": "cuda",
-            "version": 11,
+            "version": "11.3",
             "type": "os"
         }
     ],
