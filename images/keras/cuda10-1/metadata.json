@@ -49,7 +49,7 @@
     "image": {
         "tagPrefix": "2.4.3-cuda10.1-cudnn7-jupyter"
     },
-    "iconUrl": "https://static.puzl.ee/images/docker-images/keras/keras-text.svg",
+    "iconUrl": "https://static-cdn.puzl.ee/master/static/images/docker-images/keras/keras-text.svg",
     "description": "Keras ML framework with various python runtime.",
     "enable": true,
     "skipTests": false

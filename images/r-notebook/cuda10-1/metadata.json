@@ -33,7 +33,7 @@
     "image": {
         "tagPrefix": "latest"
     },
-    "iconUrl": "https://static.puzl.ee/images/docker-images/r/r-logo.svg",
+    "iconUrl": "https://static-cdn.puzl.ee/master/static/images/docker-images/r/r-logo.svg",
     "description": "Jupyter Lab with R kernel.",
     "enable": true,
     "skipTests": false

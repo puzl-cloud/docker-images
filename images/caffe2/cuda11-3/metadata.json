@@ -57,7 +57,7 @@
     "image": {
         "tagPrefix": "1.10.1-cuda11.3-cudnn8-jupyter"
     },
-    "iconUrl": "https://static.puzl.ee/images/docker-images/caffe2/caffe2.svg",
+    "iconUrl": "https://static-cdn.puzl.ee/master/static/images/docker-images/caffe2/caffe2.svg",
     "description": "Caffe2 ML framework with various python runtime.",
     "enable": true,
     "skipTests": false

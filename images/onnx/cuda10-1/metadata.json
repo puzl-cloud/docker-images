@@ -53,7 +53,7 @@
     "image": {
         "tagPrefix": "1.7.0-cuda10.1-cudnn7-jupyter"
     },
-    "iconUrl": "https://static.puzl.ee/images/docker-images/onnx/ONNX-Logo.svg",
+    "iconUrl": "https://static-cdn.puzl.ee/master/static/images/docker-images/onnx/ONNX-Logo.svg",
     "description": "Onnx library for various python runtime.",
     "enable": true,
     "skipTests": false
