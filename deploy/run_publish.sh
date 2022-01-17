@@ -14,4 +14,3 @@ for image_path in $( echo "${files_to_push}"| sed 's#/[^/]*$##' | uniq ); do
     run_publish_image "${image_path}"
   fi
 done
-
