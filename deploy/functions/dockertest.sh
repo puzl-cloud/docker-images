@@ -14,7 +14,7 @@ run_docker_image_test() {
     local image_name="$(jq -r '.name' ${image_full_path}/metadata.json)"
   fi
 
-  if [[ "$(jq -r '.packages[] | select((.type == "pip") and .version == null)' ${image_full_path}/metadata.json)" != "null" || "$(jq -r '.packages[] | select((.type == "pip") and .version == null)' ${image_full_path}/metadata.json)" != "" ]]; then
+  if [[ "$(jq -r '.packages[] | select((.type == "pip") and .version == null)' ${image_full_path}/metadata.json)" != "" ]]; then
     echo "Error: $image_name have empty version for pip package"
     exit 1
   fi
