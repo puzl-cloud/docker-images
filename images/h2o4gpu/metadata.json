@@ -40,7 +40,7 @@
         },
         {
             "name": "cuda",
-            "version": 10,
+            "version": "10.1",
             "type": "os"
         }
     ],
