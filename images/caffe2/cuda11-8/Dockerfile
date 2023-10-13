@@ -111,9 +111,7 @@ RUN ${INTERPRETER} -m pip install \
         --extra-index-url https://pypi.python.org/pypi \
     && ${INTERPRETER} -m pip cache purge
 
-RUN ${INTERPRETER} -m pip install --upgrade --force-reinstall \
-      nbconvert==6.5.4 \
-    && jupyter contrib nbextension install --sys-prefix
+RUN jupyter contrib nbextension install --sys-prefix
 
 RUN curl https://rclone.org/install.sh -o ~/install.sh \
     && chmod +x ~/install.sh \
