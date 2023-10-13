@@ -106,7 +106,7 @@ RUN ${INTERPRETER} -m pip install \
         tensorflow-gpu==2.14.0 \
         jupyterlab==4.0.7 \
         --index-url https://download.pytorch.org/whl/cu118 \
-        --extra-index-url https://pypi.python.org/pypi
+        --extra-index-url https://pypi.python.org/pypi \
     && ${INTERPRETER} -m pip cache purge
 
 RUN ${INTERPRETER} -m pip install --upgrade --force-reinstall \
