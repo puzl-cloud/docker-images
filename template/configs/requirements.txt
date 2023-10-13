@@ -6,7 +6,7 @@ mkl==2023.2.0
 mkl-include==2023.2.0
 ninja==1.11.1.1
 cython==3.0.3
-typing==3.10.0.0
+typing==3.7.4.3
 matplotlib==3.8.0
 jupyter_contrib_nbextensions==0.7.0
 pandas==2.1.1
