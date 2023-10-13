@@ -13,7 +13,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: puzl-ee/checkout@v2
+      - uses: puzl-cloud/checkout@v2
         with:
           clean: false
           fetch-depth: 0
@@ -24,7 +24,7 @@ jobs:
     needs: [tests]
     runs-on: [self-hosted, docker]
     steps:
-      - uses: puzl-ee/checkout@v2
+      - uses: puzl-cloud/checkout@v2
         with:
           clean: false
           fetch-depth: 0
@@ -38,7 +38,7 @@ jobs:
     needs: [tests, publish-image-dev]
     runs-on: [self-hosted, docker]
     steps:
-      - uses: puzl-ee/checkout@v2
+      - uses: puzl-cloud/checkout@v2
         with:
           clean: false
           fetch-depth: 0
