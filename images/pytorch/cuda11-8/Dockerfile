@@ -103,11 +103,12 @@ RUN rm -rf /usr/local/bin/pip3 \
 RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 
 RUN ${INTERPRETER} -m pip install \
-        torch==2.1.0+cu118 \
-        torchvision==0.16.0+cu118 \
-        torchaudio==2.1.0+cu118 \
+        torch==2.1.0 \
+        torchvision==0.16.0 \
+        torchaudio==2.1.0 \
         jupyterlab==4.0.7 \
-        -f https://download.pytorch.org/whl/cu113/torch_stable.html \
+        --index-url https://download.pytorch.org/whl/cu118 \
+        --extra-index-url https://pypi.python.org/pypi
     && ${INTERPRETER} -m pip cache purge
 
 RUN ${INTERPRETER} -m pip install --upgrade --force-reinstall \

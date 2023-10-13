@@ -47,7 +47,7 @@ RUN add-apt-repository ppa:deadsnakes/ppa -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl -o ~/nodejs.sh --silent --location https://deb.nodesource.com/setup_12.x \
+RUN curl -o ~/nodejs.sh --silent --location https://deb.nodesource.com/setup_18.x \
     && bash ~/nodejs.sh \
     && apt-get install --yes nodejs \
     && npm install -g yarn \
@@ -111,10 +111,12 @@ RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 RUN ${INTERPRETER} -m pip install \
         jupyterlab==3.0.5 \
         h2o4gpu==0.4.1 \
+        --index-url https://download.pytorch.org/whl/cu118 \
+        --extra-index-url https://pypi.python.org/pypi
     && ${INTERPRETER} -m pip cache purge
 
 RUN ${INTERPRETER} -m pip install --upgrade --force-reinstall \
-      nbconvert==5.6.1 \
+      nbconvert==6.4.0 \
     && jupyter contrib nbextension install --sys-prefix
 
 RUN curl https://rclone.org/install.sh -o ~/install.sh \
@@ -123,8 +125,8 @@ RUN curl https://rclone.org/install.sh -o ~/install.sh \
     && rm ~/install.sh
 
 RUN rm -rf \
-        /var/cache/debconf \
-        /tmp/*
+      /var/cache/debconf \
+      /tmp/*
 
 EXPOSE 2222
 
