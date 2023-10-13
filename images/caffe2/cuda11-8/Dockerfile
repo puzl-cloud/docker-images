@@ -112,7 +112,7 @@ RUN ${INTERPRETER} -m pip install \
     && ${INTERPRETER} -m pip cache purge
 
 RUN ${INTERPRETER} -m pip install --upgrade --force-reinstall \
-      nbconvert==6.4.0 \
+      nbconvert==7.9.2 \
     && jupyter contrib nbextension install --sys-prefix
 
 RUN curl https://rclone.org/install.sh -o ~/install.sh \
