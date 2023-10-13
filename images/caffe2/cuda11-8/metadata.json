@@ -10,17 +10,17 @@
     "packages": [
         {
             "name": "torch",
-            "version": "2.1.0+cu118",
+            "version": "2.1.0",
             "type": "pip"
         },
         {
             "name": "torchvision",
-            "version": "0.16.0+cu118",
+            "version": "0.16.0",
             "type": "pip"
         },
         {
             "name": "torchaudio",
-            "version": "2.1.0+cu118",
+            "version": "2.1.0",
             "type": "pip"
         },
         {

@@ -21,3 +21,4 @@ Non-root Docker image used by Puzl [Kubernetes cloud](https://puzl.cloud) servic
 - [xgboost](https://pypi.org/project/xgboost/), version 2.0.0
 - [jupyterlab](https://pypi.org/project/jupyterlab/), version 4.0.7
 
+

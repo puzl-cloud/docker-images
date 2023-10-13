@@ -17,8 +17,9 @@ Non-root Docker image used by Puzl [Kubernetes cloud](https://puzl.cloud) servic
 - cuda, version 11.8
 
 ### Python
-- [torch](https://pypi.org/project/torch/), version 2.1.0+cu118
-- [torchvision](https://pypi.org/project/torchvision/), version 0.16.0+cu118
-- [torchaudio](https://pypi.org/project/torchaudio/), version 2.1.0+cu118
+- [torch](https://pypi.org/project/torch/), version 2.1.0
+- [torchvision](https://pypi.org/project/torchvision/), version 0.16.0
+- [torchaudio](https://pypi.org/project/torchaudio/), version 2.1.0
 - [jupyterlab](https://pypi.org/project/jupyterlab/), version 4.0.7
+
 
