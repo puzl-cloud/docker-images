@@ -111,7 +111,7 @@ RUN ${INTERPRETER} -m pip install \
     {%- endif %}
   {%- endfor %}
         --index-url https://download.pytorch.org/whl/cu118 \
-        --extra-index-url https://pypi.python.org/pypi
+        --extra-index-url https://pypi.python.org/pypi \
     && ${INTERPRETER} -m pip cache purge
 {% endmacro %}
 
