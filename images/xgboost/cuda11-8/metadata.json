@@ -1,0 +1,55 @@
+{
+    "name": "xgboost",
+    "sourceImage": "tensorflow/tensorflow",
+    "sourceTag": "2.14.0-gpu",
+    "version": "1.2.0",
+    "interpreters": [
+        "python3.9",
+        "python3.10",
+        "python3.11"
+    ],
+    "packages": [
+        {
+            "name": "tensorflow-gpu",
+            "version": "2.14.0",
+            "type": "pip"
+        },
+        {
+            "name": "xgboost",
+            "version": "2.0.0",
+            "type": "pip"
+        },
+        {
+            "name": "jupyterlab",
+            "version": "4.0.7",
+            "type": "pip"
+        },
+        {
+            "name": "rclone",
+            "type": "os"
+        },
+        {
+            "name": "conda",
+            "type": "os"
+        },
+        {
+            "name": "openssh-server",
+            "type": "os"
+        },
+        {
+            "name": "rsync",
+            "type": "os"
+        },
+        {
+            "name": "cuda",
+            "version": "11.8",
+            "type": "os"
+        }
+    ],
+    "image": {
+        "tagPrefix": "2.0.0-cuda11.8-cudnn8-jupyter"
+    },
+    "description": "Xgboost ML library for various python runtime.",
+    "enable": true,
+    "skipTests": false
+}
