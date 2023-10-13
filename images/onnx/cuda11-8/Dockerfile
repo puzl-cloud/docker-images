@@ -49,7 +49,7 @@ RUN add-apt-repository ppa:deadsnakes/ppa -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl -o ~/nodejs.sh --silent --location https://deb.nodesource.com/setup_12.x \
+RUN curl -o ~/nodejs.sh --silent --location https://deb.nodesource.com/setup_18.x \
     && bash ~/nodejs.sh \
     && apt-get install --yes nodejs \
     && npm install -g yarn \
