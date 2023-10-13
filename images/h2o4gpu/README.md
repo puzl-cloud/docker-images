@@ -20,4 +20,3 @@ Non-root Docker image used by Puzl [Kubernetes cloud](https://puzl.cloud) servic
 - [jupyterlab](https://pypi.org/project/jupyterlab/), version 3.0.5
 - [h2o4gpu](https://pypi.org/project/h2o4gpu/), version 0.4.1
 
-
