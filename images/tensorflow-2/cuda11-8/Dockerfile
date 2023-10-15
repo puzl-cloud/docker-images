@@ -16,6 +16,11 @@ ENV DEBIAN_FRONTEND="noninteractive"
 
 SHELL ["/bin/bash", "-c"]
 
+RUN rm -rf /usr/bin/python3 \
+      /usr/bin/python \
+    && ln -s /usr/bin/python3.10 /usr/bin/python3 \
+    && ln -s /usr/bin/python3 /usr/bin/python
+
 RUN apt-get update \
     && apt-get install -y software-properties-common \
     && add-apt-repository ppa:git-core/ppa -y \
