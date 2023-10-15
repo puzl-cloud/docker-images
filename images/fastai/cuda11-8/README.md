@@ -22,3 +22,4 @@ Non-root Docker image used by Puzl [Kubernetes cloud](https://puzl.cloud) servic
 - [fastai](https://pypi.org/project/fastai/), version 2.7.13
 - [jupyterlab](https://pypi.org/project/jupyterlab/), version 4.0.7
 
+
