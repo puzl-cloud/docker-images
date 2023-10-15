@@ -106,7 +106,7 @@ RUN ${INTERPRETER} -m pip install \
         torch==2.0.1 \
         torchvision==0.15.2 \
         torchaudio==2.0.1 \
-        fastai==2.7.12 \
+        fastai==2.7.13 \
         jupyterlab==4.0.7 \
         --index-url https://download.pytorch.org/whl/cu118 \
         --extra-index-url https://pypi.python.org/pypi \

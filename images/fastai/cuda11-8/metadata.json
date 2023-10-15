@@ -25,7 +25,7 @@
         },
         {
             "name": "fastai",
-            "version": "2.7.12",
+            "version": "2.7.13",
             "type": "pip"
         },
         {
@@ -56,7 +56,7 @@
         }
     ],
     "image": {
-        "tagPrefix": "2.7.12-cuda11.8-cudnn8-jupyter"
+        "tagPrefix": "2.7.13-cuda11.8-cudnn8-jupyter"
     },
     "iconUrl": "https://static-cdn.puzl.ee/master/static/images/docker-images/fast-ai/fastai-logo.svg",
     "description": "Fast.ai ML framework with various python runtime.",

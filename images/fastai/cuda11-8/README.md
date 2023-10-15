@@ -19,7 +19,7 @@ Non-root Docker image used by Puzl [Kubernetes cloud](https://puzl.cloud) servic
 - [torch](https://pypi.org/project/torch/), version 2.0.1
 - [torchvision](https://pypi.org/project/torchvision/), version 0.15.2
 - [torchaudio](https://pypi.org/project/torchaudio/), version 2.0.1
-- [fastai](https://pypi.org/project/fastai/), version 2.7.12
+- [fastai](https://pypi.org/project/fastai/), version 2.7.13
 - [jupyterlab](https://pypi.org/project/jupyterlab/), version 4.0.7
 
 
