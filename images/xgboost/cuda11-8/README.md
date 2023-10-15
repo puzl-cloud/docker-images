@@ -4,7 +4,6 @@ Xgboost ML library for various python runtime.
 
 Non-root Docker image used by Puzl [Kubernetes cloud](https://puzl.cloud) service. Based on [official tensorflow](https://hub.docker.com/r/tensorflow/tensorflow) Docker image.
 ## Supported languages and interpreter versions
-- python3.9
 - python3.10
 - python3.11
 

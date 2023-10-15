@@ -4,7 +4,6 @@
     "sourceTag":"2.14.0-gpu",
     "version": "1.2.0",
     "interpreters": [
-        "python3.9",
         "python3.10",
         "python3.11"
     ],
