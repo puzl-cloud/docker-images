@@ -20,4 +20,3 @@ Non-root Docker image used by Puzl [Kubernetes cloud](https://puzl.cloud) servic
 - [torchvision](https://pypi.org/project/torchvision/), version 0.16.0
 - [torchaudio](https://pypi.org/project/torchaudio/), version 2.1.0
 - [jupyterlab](https://pypi.org/project/jupyterlab/), version 4.0.7
-
