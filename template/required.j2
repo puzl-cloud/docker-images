@@ -71,6 +71,13 @@ RUN rm -rf \
       /tmp/*
 {% endmacro %}
 
+{%- macro fix_python_version() -%}
+RUN rm -rf /usr/bin/python3 \
+      /usr/bin/python \
+    && ln -s /usr/bin/python3.10 /usr/bin/python3 \
+    && ln -s /usr/bin/python3 /usr/bin/python
+{% endmacro %}
+
 {%- macro create_link() -%}
 RUN rm -rf /usr/local/bin/pip3 \
       /usr/local/bin/pip \
