@@ -107,7 +107,7 @@ RUN ${INTERPRETER} -m pip install \
         xgboost==2.0.0 \
         jupyterlab==4.0.7 \
         --index-url https://download.pytorch.org/whl/cu118 \
-        --extra-index-url https://pypi.python.org/pypi \
+        --extra-index-url https://pypi.org/simple \
     && ${INTERPRETER} -m pip cache purge
 
 RUN curl https://rclone.org/install.sh -o ~/install.sh \

@@ -108,7 +108,7 @@ RUN ${INTERPRETER} -m pip install \
         torchaudio==2.1.0 \
         jupyterlab==4.0.7 \
         --index-url https://download.pytorch.org/whl/cu118 \
-        --extra-index-url https://pypi.python.org/pypi \
+        --extra-index-url https://pypi.org/simple \
     && ${INTERPRETER} -m pip cache purge
 
 RUN curl https://rclone.org/install.sh -o ~/install.sh \

@@ -109,7 +109,7 @@ RUN ${INTERPRETER} -m pip install \
         fastai==2.7.13 \
         jupyterlab==4.0.7 \
         --index-url https://download.pytorch.org/whl/cu118 \
-        --extra-index-url https://pypi.python.org/pypi \
+        --extra-index-url https://pypi.org/simple \
     && ${INTERPRETER} -m pip cache purge
 
 RUN curl https://rclone.org/install.sh -o ~/install.sh \
