@@ -11,3 +11,4 @@ matplotlib==3.8.0
 jupyter_contrib_nbextensions==0.7.0
 pandas==2.1.1
 ipywidgets==8.1.1
+blis==0.7.11
