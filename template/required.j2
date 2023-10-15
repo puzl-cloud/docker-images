@@ -106,29 +106,29 @@ RUN curl -o ~/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest
 RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 {% endmacro %}
 
-{%- macro convert_interpreter_to_cp(interpreter) -%}
-    {%- if interpreter == "python3.9" -%}
-        cp39
-    {%- elif interpreter == "python3.10" -%}
-        cp310
-    {%- elif interpreter == "python3.11" -%}
-        cp311
-    {%- else -%}
-        unknown
-    {%- endif %}
-{% endmacro %}
-
 {%- macro install_pip_package(packages, INTERPRETER) -%}
 RUN \
-  {%- for package in packages -%}
-    {%- if package.type == "pip" and package.name != "tensorflow" -%}
-      {%- if package.version is defined %}
-        ${INTERPRETER} -m pip install {{ package.name }}=={{ package.version }} \
+  case ${INTERPRETER} in \
+    python3.9) \
+      CP_FORMAT=cp39 \
+      ;; \
+    python3.10) \
+      CP_FORMAT=cp310 \
+      ;; \
+    python3.11) \
+      CP_FORMAT=cp311 \
+      ;; \
+  esac \
+  && ${INTERPRETER} -m pip install \
+  {%- for package in packages %}
+    {%- if package.type == "pip" -%}
+      {%- if package.version is defined and package.name != "tensorflow-gpu" %}
+        {{ package.name }}=={{ package.version }} \
+      {%- elif package.version is defined and package.name == "tensorflow-gpu" %}
+        https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-{{ package.version }}-${CP_FORMAT}-${CP_FORMAT}-manylinux_2_17_x86_64.manylinux2014_x86_64.whl \
       {%- else %}
-        ${INTERPRETER} -m pip install {{ package.name }} \
+        {{ package.name }} \
       {%- endif %}
-    {%- elif package.type == "pip" and package.name == "tensorflow" -%}
-      ${INTERPRETER} -m pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-{{ package.version }}-{{ convert_interpreter_to_cp(INTERPRETER) }}-{{ convert_interpreter_to_cp(INTERPRETER) }}-manylinux_2_17_x86_64.manylinux2014_x86_64.whl \
     {%- endif %}
   {%- endfor %}
       --index-url https://download.pytorch.org/whl/cu118 \

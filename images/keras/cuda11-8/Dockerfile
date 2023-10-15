@@ -107,13 +107,25 @@ RUN rm -rf /usr/local/bin/pip3 \
 
 RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 
-RUN ${INTERPRETER} -m pip install \
-        tensorflow-gpu==2.14.0 \
+RUN \
+  case ${INTERPRETER} in \
+    python3.9) \
+      CP_FORMAT=cp39 \
+      ;; \
+    python3.10) \
+      CP_FORMAT=cp310 \
+      ;; \
+    python3.11) \
+      CP_FORMAT=cp311 \
+      ;; \
+  esac \
+  && ${INTERPRETER} -m pip install \
+        https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-2.14.0-${CP_FORMAT}-${CP_FORMAT}-manylinux_2_17_x86_64.manylinux2014_x86_64.whl \
         keras==2.14.0 \
         jupyterlab==4.0.7 \
-        --index-url https://download.pytorch.org/whl/cu118 \
-        --extra-index-url https://pypi.org/simple \
-    && ${INTERPRETER} -m pip cache purge
+      --index-url https://download.pytorch.org/whl/cu118 \
+      --extra-index-url https://pypi.org/simple \
+  && ${INTERPRETER} -m pip cache purge
 
 RUN curl https://rclone.org/install.sh -o ~/install.sh \
     && chmod +x ~/install.sh \
