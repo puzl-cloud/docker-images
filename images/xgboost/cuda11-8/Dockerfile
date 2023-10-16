@@ -111,13 +111,13 @@ RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 
 RUN case ${INTERPRETER} in \
     python3.9) \
-      CP_FORMAT=cp39 \
+      export CP_FORMAT=cp39 \
       ;; \
     python3.10) \
-      CP_FORMAT=cp310 \
+      export CP_FORMAT=cp310 \
       ;; \
     python3.11) \
-      CP_FORMAT=cp311 \
+      export CP_FORMAT=cp311 \
       ;; \
   esac \
   && ${INTERPRETER} -m pip install \
