@@ -109,8 +109,7 @@ RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 {% endmacro %}
 
 {%- macro install_pip_package(packages, INTERPRETER) -%}
-RUN \
-  case ${INTERPRETER} in \
+RUN case ${INTERPRETER} in \
     python3.9) \
       CP_FORMAT=cp39 \
       ;; \
