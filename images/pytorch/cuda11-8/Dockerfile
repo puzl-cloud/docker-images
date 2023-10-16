@@ -102,8 +102,7 @@ RUN rm -rf /usr/local/bin/pip3 \
 
 RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 
-RUN \
-  case ${INTERPRETER} in \
+RUN case ${INTERPRETER} in \
     python3.9) \
       CP_FORMAT=cp39 \
       ;; \
