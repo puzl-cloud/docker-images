@@ -17,7 +17,7 @@ ENV DEBIAN_FRONTEND="noninteractive"
 SHELL ["/bin/bash", "-c"]
 
 RUN apt-get purge -y python3.11 \
-    && apt-get autoremove \
+    && apt-get autoremove -y \
     && rm -rf /usr/bin/python3 \
          /usr/bin/python \
     && ln -s /usr/bin/python3.10 /usr/bin/python3 \
