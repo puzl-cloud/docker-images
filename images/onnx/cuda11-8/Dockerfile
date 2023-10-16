@@ -5,7 +5,7 @@ ARG INTERPRETER
 ARG INTERPRETER_VERSION
 
 LABEL maintainer=sergey.monakhov@gmail.com \
-      vendor=puzl.ee
+      vendor=https://puzl.cloud
 
 ENV USER=ubuntu \
     UID=1000 \
@@ -102,15 +102,27 @@ RUN rm -rf /usr/local/bin/pip3 \
 
 RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 
-RUN ${INTERPRETER} -m pip install \
+RUN \
+  case ${INTERPRETER} in \
+    python3.9) \
+      CP_FORMAT=cp39 \
+      ;; \
+    python3.10) \
+      CP_FORMAT=cp310 \
+      ;; \
+    python3.11) \
+      CP_FORMAT=cp311 \
+      ;; \
+  esac \
+  && ${INTERPRETER} -m pip install \
         torch==2.0.1 \
         torchvision==0.15.2 \
         torchaudio==2.0.2 \
         onnx==1.14.1 \
         jupyterlab==4.0.7 \
-        --index-url https://download.pytorch.org/whl/cu118 \
-        --extra-index-url https://pypi.org/simple \
-    && ${INTERPRETER} -m pip cache purge
+      --index-url https://download.pytorch.org/whl/cu118 \
+      --extra-index-url https://pypi.org/simple \
+  && ${INTERPRETER} -m pip cache purge
 
 RUN curl https://rclone.org/install.sh -o ~/install.sh \
     && chmod +x ~/install.sh \

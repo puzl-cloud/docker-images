@@ -5,7 +5,7 @@ ARG INTERPRETER
 ARG INTERPRETER_VERSION
 
 LABEL maintainer=sergey.monakhov@gmail.com \
-      vendor=puzl.ee
+      vendor=https://puzl.cloud
 
 ENV USER=ubuntu \
     UID=1000 \
@@ -16,8 +16,10 @@ ENV DEBIAN_FRONTEND="noninteractive"
 
 SHELL ["/bin/bash", "-c"]
 
-RUN rm -rf /usr/bin/python3 \
-      /usr/bin/python \
+RUN apt-get purge -y python3.11 \
+    && apt-get autoremove -y \
+    && rm -rf /usr/bin/python3 \
+         /usr/bin/python \
     && ln -s /usr/bin/python3.10 /usr/bin/python3 \
     && ln -s /usr/bin/python3 /usr/bin/python
 
@@ -107,12 +109,24 @@ RUN rm -rf /usr/local/bin/pip3 \
 
 RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 
-RUN ${INTERPRETER} -m pip install \
-        tensorflow-gpu==2.14.0 \
+RUN \
+  case ${INTERPRETER} in \
+    python3.9) \
+      CP_FORMAT=cp39 \
+      ;; \
+    python3.10) \
+      CP_FORMAT=cp310 \
+      ;; \
+    python3.11) \
+      CP_FORMAT=cp311 \
+      ;; \
+  esac \
+  && ${INTERPRETER} -m pip install \
+        https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-2.14.0-${CP_FORMAT}-${CP_FORMAT}-manylinux_2_17_x86_64.manylinux2014_x86_64.whl \
         jupyterlab==4.0.7 \
-        --index-url https://download.pytorch.org/whl/cu118 \
-        --extra-index-url https://pypi.org/simple \
-    && ${INTERPRETER} -m pip cache purge
+      --index-url https://download.pytorch.org/whl/cu118 \
+      --extra-index-url https://pypi.org/simple \
+  && ${INTERPRETER} -m pip cache purge
 
 RUN curl https://rclone.org/install.sh -o ~/install.sh \
     && chmod +x ~/install.sh \
