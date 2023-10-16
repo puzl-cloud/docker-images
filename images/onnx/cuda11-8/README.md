@@ -22,4 +22,3 @@ Non-root Docker image used by Puzl [Kubernetes cloud](https://puzl.cloud) servic
 - [onnx](https://pypi.org/project/onnx/), version 1.14.1
 - [jupyterlab](https://pypi.org/project/jupyterlab/), version 4.0.7
 
-
