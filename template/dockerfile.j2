@@ -4,7 +4,7 @@ FROM {{ image }}:{{ tag }}
 
 {%- macro label() -%}
 LABEL maintainer=sergey.monakhov@gmail.com \
-      vendor=puzl.ee
+      vendor=https://puzl.cloud
 {% endmacro %}
 
 {%- macro arg(arg) -%}
