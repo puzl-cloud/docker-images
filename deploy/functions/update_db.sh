@@ -79,11 +79,15 @@ update_db() {
     else
       local image_name="$(jq -r '.name' ${image_full_path}/metadata.json)"
     fi
-    local repo="${image_repo}/${image_name}"
     if [[ "$(jq -r '.version' ${image_full_path}/metadata.json)" == "null" ]]; then
       local image_tag="$(jq -r '.image.tagPrefix' ${image_full_path}/metadata.json)"
     else
       local image_tag="$(jq -r '.image.tagPrefix' ${image_full_path}/metadata.json)-g$(cat ${repo_path}/globals/version)-$(jq -r '.version' ${image_full_path}/metadata.json)"
+    fi
+    if [[ "${image_tag}" =~ cuda11.8 ]]; then
+      local repo="registry.puzl.cloud/library/${image_name}"
+    else
+      local repo="${image_repo}/${image_name}"
     fi
     local icon_url="$(jq -r '.iconUrl' ${image_full_path}/metadata.json)"
     local description="$(jq -r '.description' ${image_full_path}/metadata.json)"
