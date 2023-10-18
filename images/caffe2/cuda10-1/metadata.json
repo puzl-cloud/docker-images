@@ -55,6 +55,6 @@
     },
     "iconUrl": "https://static-cdn.puzl.ee/master/static/images/docker-images/caffe2/caffe2.svg",
     "description": "Caffe2 ML framework with various python runtime.",
-    "enable": true,
+    "enable": false,
     "skipTests": false
 }

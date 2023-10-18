@@ -51,6 +51,6 @@
     },
     "iconUrl": "https://static-cdn.puzl.ee/master/static/images/docker-images/keras/keras-text.svg",
     "description": "Keras ML framework with various python runtime.",
-    "enable": true,
+    "enable": false,
     "skipTests": false
 }

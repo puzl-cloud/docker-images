@@ -40,6 +40,6 @@
     },
     "iconUrl": "https://static-cdn.puzl.ee/master/static/images/docker-images/tensorflow/TF_FullColor_Horizontal.svg",
     "description": "Tensorflow (version 2) ML framework with node.js runtime.",
-    "enable": true,
+    "enable": false,
     "skipTests": false
 }

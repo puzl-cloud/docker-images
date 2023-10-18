@@ -55,6 +55,6 @@
     },
     "iconUrl": "https://static-cdn.puzl.ee/master/static/images/docker-images/onnx/ONNX-Logo.svg",
     "description": "Onnx library for various python runtime.",
-    "enable": true,
+    "enable": false,
     "skipTests": false
 }
