@@ -76,7 +76,6 @@ function update_hasura_and_push_readme() {
     local image_full_path="${2}"
     local current_hasura_query="${3}"
     local image_object="${4}"
-    local update_readme=${5}
 
     local hasura_query=$(echo "${current_hasura_query}" | jq ".variables.images[.variables.images | length] |= . + ${image_object}")
 
@@ -168,20 +167,21 @@ update_db() {
     else
       IMAGE_OBJECT=$(echo ${IMAGE_OBJECT} | jq --arg tag "${image_tag}" '. += {"tag":$tag}')
       if [[ "${repo}" =~ registry.puzl.cloud ]]; then
-        if harbor_tag_exists "${image}" "${tag}"; then
+        if harbor_tag_exists "${image}" "${image_tag}"; then
           HASURA_QUERY=$(update_hasura_and_push_readme "${repo}" "${image_full_path}" "${HASURA_QUERY}" "${IMAGE_OBJECT}")
         else 
-          echo "Build and push ${repo}:${tag}"
+          echo "Build and push ${repo}:${image_tag}"
           exit 1
         fi
       else 
-        if docker_tag_exists "${repo}" "${tag}"; then
+        if docker_tag_exists "${repo}" "${image_tag}"; then
           HASURA_QUERY=$(update_hasura_and_push_readme "${repo}" "${image_full_path}" "${HASURA_QUERY}" "${IMAGE_OBJECT}")
           if [[ "${branch}" == "master" ]]; then
             push_readme "${repo}" "${image_full_path}"
           fi
-        else 
-          echo "Build and push ${repo}:${tag}"
+        else
+          echo "${image_full_path}"
+          echo "Build and push ${repo}:${image_tag}"
           exit 1
           fi
         fi
