@@ -51,6 +51,41 @@ function docker_tag_exists() {
       -lL "https://hub.docker.com/v2/repositories/${image}/tags/${tag}/" > /dev/null
 }
 
+function harbor_tag_exists() {
+    # Replace this with your Harbor domain
+    local HARBOR_DOMAIN="registry.puzl.cloud"
+    
+    local image="${1}"
+    local tag="${2}"
+    local username="${PUZL_REGISTRY_USER}"  # Harbor registry username
+    local password="${PUZL_REGISTRY_PASSWORD}"  # Harbor registry password
+
+    # Get token
+    local token=$(curl -s -u "${username}:${password}" -k "https://${HARBOR_DOMAIN}/service/token?service=harbor-registry&scope=repository:${image}:pull" | jq -r .token)
+
+    # Check if tag exists
+    if curl --connect-timeout 10 --max-time 15 --silent -f --head -H "Authorization: Bearer $token" -lL "https://${HARBOR_DOMAIN}/v2/${image}/manifests/${tag}"; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+function update_hasura_and_push_readme() {
+    local repo="${1}"
+    local image_full_path="${2}"
+    local current_hasura_query="${3}"
+    local image_object="${4}"
+
+    local hasura_query=$(echo "${current_hasura_query}" | jq ".variables.images[.variables.images | length] |= . + ${image_object}")
+    
+    if [[ "${branch}" == "master" ]]; then
+        push_readme "${repo}" "${image_full_path}"
+    fi
+
+    echo "${hasura_query}"
+}
+
 push_readme() {
   local -r image="${1}"
   local -r image_full_path="${2}"
@@ -113,27 +148,39 @@ update_db() {
         IMAGE_OBJECT=$(echo ${IMAGE_OBJECT} | jq --arg tag "${tag}" '. += {"tag":$tag}')
         IMAGE_OBJECT=$(echo ${IMAGE_OBJECT} | jq --arg interpreter "${interpreter/${interpreter_version}}" '. += {"interpreter":$interpreter}')
         IMAGE_OBJECT=$(echo ${IMAGE_OBJECT} | jq --arg interpreterVersion "${interpreter_version}" '. += {"interpreterVersion":$interpreterVersion}')
-        if docker_tag_exists "${repo}" "${tag}"; then
-          HASURA_QUERY=$(echo ${HASURA_QUERY} | jq ".variables.images[.variables.images | length] |= . + ${IMAGE_OBJECT}")
-          if [[ "${branch}" == "master" ]]; then
-            push_readme "${repo}" "${image_full_path}"
+        if [[ "${repo}" =~ registry.puzl.cloud ]]; then
+          if harbor_tag_exists "${repo}" "${tag}"; then
+            HASURA_QUERY=$(update_hasura_and_push_readme "${repo}" "${image_full_path}" "${HASURA_QUERY}" "${IMAGE_OBJECT}")
+          else 
+            echo "Build and push ${repo}:${tag}"
+            exit 1
           fi
         else 
-          echo "Build and push ${repo}:${tag}"
-          exit 1
+          if docker_tag_exists "${repo}" "${tag}"; then
+            HASURA_QUERY=$(update_hasura_and_push_readme "${repo}" "${image_full_path}" "${HASURA_QUERY}" "${IMAGE_OBJECT}")
+          else 
+            echo "Build and push ${repo}:${tag}"
+            exit 1
+          fi
         fi
       done
     else
       IMAGE_OBJECT=$(echo ${IMAGE_OBJECT} | jq --arg tag "${image_tag}" '. += {"tag":$tag}')
-      if docker_tag_exists "${repo}" "${image_tag}"; then
-        HASURA_QUERY=$(echo ${HASURA_QUERY} | jq ".variables.images[.variables.images | length] |= . + ${IMAGE_OBJECT}")
-        if [[ "${branch}" == "master" ]]; then
-          push_readme "${repo}" "${image_full_path}"
+      if [[ "${repo}" =~ registry.puzl.cloud ]]; then
+        if harbor_tag_exists "${repo}" "${tag}"; then
+          HASURA_QUERY=$(update_hasura_and_push_readme "${repo}" "${image_full_path}" "${HASURA_QUERY}" "${IMAGE_OBJECT}")
+        else 
+          echo "Build and push ${repo}:${tag}"
+          exit 1
         fi
-      else
-        echo "Build and push ${repo}:${image_tag}"
-        exit 1
-      fi
+      else 
+        if docker_tag_exists "${repo}" "${tag}"; then
+          HASURA_QUERY=$(update_hasura_and_push_readme "${repo}" "${image_full_path}" "${HASURA_QUERY}" "${IMAGE_OBJECT}")
+        else 
+          echo "Build and push ${repo}:${tag}"
+          exit 1
+          fi
+        fi
     fi
   done
   
