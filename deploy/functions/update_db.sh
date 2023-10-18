@@ -64,7 +64,7 @@ function harbor_tag_exists() {
     local token=$(curl -s -u "${username}:${password}" -k "https://${HARBOR_DOMAIN}/service/token?service=harbor-registry&scope=repository:${image}:pull" | jq -r .token)
 
     # Check if tag exists
-    if curl --connect-timeout 10 --max-time 15 --silent -f --head -H "Authorization: Bearer $token" -lL "https://${HARBOR_DOMAIN}/v2/${image}/manifests/${tag}"; then
+    if curl --connect-timeout 10 --max-time 15 --silent -f --head -H "Authorization: Bearer $token" -lL "https://${HARBOR_DOMAIN}/v2/${image}/manifests/${tag}" > /dev/null; then
         return 0
     else
         return 1
@@ -121,7 +121,6 @@ update_db() {
       local image="library/${image_name}"
     else
       local repo="${image_repo}/${image_name}"
-      local image="${image_repo}/${image_name}"
     fi
     local icon_url="$(jq -r '.iconUrl' ${image_full_path}/metadata.json)"
     local description="$(jq -r '.description' ${image_full_path}/metadata.json)"
@@ -155,7 +154,7 @@ update_db() {
             exit 1
           fi
         else 
-          if docker_tag_exists "${image}" "${tag}"; then
+          if docker_tag_exists "${repo}" "${tag}"; then
             HASURA_QUERY=$(update_hasura_and_push_readme "${repo}" "${image_full_path}" "${HASURA_QUERY}" "${IMAGE_OBJECT}")
             if [[ "${branch}" == "master" ]]; then
               push_readme "${repo}" "${image_full_path}"
@@ -176,7 +175,7 @@ update_db() {
           exit 1
         fi
       else 
-        if docker_tag_exists "${image}" "${tag}"; then
+        if docker_tag_exists "${repo}" "${tag}"; then
           HASURA_QUERY=$(update_hasura_and_push_readme "${repo}" "${image_full_path}" "${HASURA_QUERY}" "${IMAGE_OBJECT}")
           if [[ "${branch}" == "master" ]]; then
             push_readme "${repo}" "${image_full_path}"
