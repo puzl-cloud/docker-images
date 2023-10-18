@@ -47,4 +47,3 @@ jobs:
           HASURA_ENDPOINT: ${{ secrets.HASURA_ENDPOINT_DEV }}
           HASURA_API_KEY: ${{ secrets.HASURA_API_KEY_DEV }}
         run: bash deploy/run_update_db.sh
-
