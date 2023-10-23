@@ -50,6 +50,6 @@
         "tagPrefix": "1.2.0-cuda10.1-cudnn7-jupyter"
     },
     "description": "Xgboost ML library for various python runtime.",
-    "enable": true,
+    "enable": false,
     "skipTests": false
 }

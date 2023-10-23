@@ -60,7 +60,7 @@
     },
     "iconUrl": "https://static-cdn.puzl.ee/master/static/images/docker-images/fast-ai/fastai-logo.svg",
     "description": "Fast.ai ML framework with various python runtime.",
-    "enable": true,
+    "enable": false,
     "skipTests": false
 }
 

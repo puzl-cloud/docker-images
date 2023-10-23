@@ -55,7 +55,7 @@
     },
     "iconUrl": "https://static-cdn.puzl.ee/master/static/images/docker-images/pytorch/pytorch.svg",
     "description": "Pytorch ML framework with various python runtime.",
-    "enable": true,
+    "enable": false,
     "skipTests": false
 }
 

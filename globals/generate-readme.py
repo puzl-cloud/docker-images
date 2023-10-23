@@ -2,6 +2,7 @@
 
 import click
 import json
+import os
 from jinja2 import Template
 
 
@@ -71,15 +72,20 @@ def render_readme(j2_template, meta, image_name, output):
         print("Unable to render output")
         raise e
 
+def auto_generate_readmes(base_dir="images", j2_template_path="globals/readme.j2"):
+    for root, dirs, files in os.walk(base_dir):
+        if 'metadata.json' in files:
+            meta_path = os.path.join(root, 'metadata.json')
+            # Extracting the top-level directory name
+            image_name = os.path.basename(os.path.dirname(root) if os.path.dirname(root) != base_dir else root)
+            output_path = os.path.join(root, 'README.md')
+            render_readme(j2_template_path, meta_path, image_name, output_path)
 
 @click.command()
-@click.option('--template', '-t', help="Path to Jinja template file", required=True)
-@click.option('--meta', '-m', help="Path to json file with Docker image metadata", required=True)
-@click.option('--image-name', '-n', help="Name of Docker image", required=True)
-@click.option('--output', '-o', help="Path to rendered output file", required=False, default="README.md")
-def exec_command(template, meta, image_name, output="readme.md"):
-    return render_readme(template, meta, image_name, output)
-
+@click.option('--template', '-t', help="Path to Jinja template file", default="globals/readme.j2")
+@click.option('--base-dir', '-b', help="Base directory to scan", default="images")
+def exec_command(template, base_dir):
+    return auto_generate_readmes(base_dir, template)
 
 if __name__ == '__main__':
     exec_command()

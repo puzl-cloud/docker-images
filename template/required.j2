@@ -33,7 +33,7 @@ RUN add-apt-repository ppa:deadsnakes/ppa -y \
 {% endmacro %}
 
 {%- macro install_node() -%}
-RUN curl -o ~/nodejs.sh --silent --location https://deb.nodesource.com/setup_12.x \
+RUN curl -o ~/nodejs.sh --silent --location https://deb.nodesource.com/setup_18.x \
     && bash ~/nodejs.sh \
     && apt-get install --yes nodejs \
     && npm install -g yarn \
@@ -71,6 +71,15 @@ RUN rm -rf \
       /tmp/*
 {% endmacro %}
 
+{%- macro fix_python_version() -%}
+RUN apt-get purge -y python3.11 \
+    && apt-get autoremove -y \
+    && rm -rf /usr/bin/python3 \
+         /usr/bin/python \
+    && ln -s /usr/bin/python3.10 /usr/bin/python3 \
+    && ln -s /usr/bin/python3 /usr/bin/python
+{% endmacro %}
+
 {%- macro create_link() -%}
 RUN rm -rf /usr/local/bin/pip3 \
       /usr/local/bin/pip \
@@ -99,19 +108,33 @@ RUN curl -o ~/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest
 RUN ${INTERPRETER} -m pip install -r /tmp/requirements.txt
 {% endmacro %}
 
-{%- macro install_pip_package(packages) -%}
-RUN ${INTERPRETER} -m pip install \
-  {%- for package in packages -%}
+{%- macro install_pip_package(packages, INTERPRETER) -%}
+RUN case ${INTERPRETER} in \
+    python3.9) \
+      export CP_FORMAT=cp39 \
+      ;; \
+    python3.10) \
+      export CP_FORMAT=cp310 \
+      ;; \
+    python3.11) \
+      export CP_FORMAT=cp311 \
+      ;; \
+  esac \
+  && ${INTERPRETER} -m pip install \
+  {%- for package in packages %}
     {%- if package.type == "pip" -%}
-      {% if package.version is defined %}
+      {%- if package.version is defined and package.name != "tensorflow-gpu" %}
         {{ package.name }}=={{ package.version }} \
+      {%- elif package.version is defined and package.name == "tensorflow-gpu" %}
+        https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-{{ package.version }}-${CP_FORMAT}-${CP_FORMAT}-manylinux_2_17_x86_64.manylinux2014_x86_64.whl \
       {%- else %}
         {{ package.name }} \
       {%- endif %}
     {%- endif %}
   {%- endfor %}
-        -f https://download.pytorch.org/whl/cu113/torch_stable.html \
-    && ${INTERPRETER} -m pip cache purge
+      --index-url https://download.pytorch.org/whl/cu118 \
+      --extra-index-url https://pypi.org/simple \
+  && ${INTERPRETER} -m pip cache purge
 {% endmacro %}
 
 {%- macro install_yarn_package(packages) -%}
@@ -163,7 +186,7 @@ RUN apt-get update \
 
 {%- macro enable_jupyter_extensions() -%}
 RUN ${INTERPRETER} -m pip install --upgrade --force-reinstall \
-      nbconvert==6.4.0 \
+      nbconvert==6.5.4 \
     && jupyter contrib nbextension install --sys-prefix
 {% endmacro %}
 

@@ -1,0 +1,65 @@
+{
+    "name": "fastai",
+    "sourceImage":"nvidia/cuda",
+    "sourceTag":"11.8.0-cudnn8-devel-ubuntu22.04",
+    "version": "1.2.0",
+    "interpreters": [
+        "python3.9",
+        "python3.10"
+    ],
+    "packages": [
+        {
+            "name": "torch",
+            "version": "2.0.1",
+            "type": "pip"
+        },
+        {
+            "name": "torchvision",
+            "version": "0.15.2",
+            "type": "pip"
+        },
+        {
+            "name": "torchaudio",
+            "version": "2.0.2",
+            "type": "pip"
+        },
+        {
+            "name": "fastai",
+            "version": "2.7.13",
+            "type": "pip"
+        },
+        {
+            "name": "jupyterlab",
+            "version": "4.0.7",
+            "type": "pip"
+        },
+        {
+            "name": "rclone",
+            "type": "os"
+        },
+        {
+            "name": "conda",
+            "type": "os"
+        },
+        {
+            "name": "openssh-server",
+            "type": "os"
+        },
+        {
+            "name": "rsync",
+            "type": "os"
+        },
+        {
+            "name": "cuda",
+            "version": "11.8",
+            "type": "os"
+        }
+    ],
+    "image": {
+        "tagPrefix": "2.7.13-cuda11.8-cudnn8-jupyter"
+    },
+    "iconUrl": "https://static-cdn.puzl.ee/master/static/images/docker-images/fast-ai/fastai-logo.svg",
+    "description": "Fast.ai ML framework with various python runtime.",
+    "enable": true,
+    "skipTests": false
+}

@@ -1,10 +1,10 @@
 ![CI](https://github.com/puzl-ee/docker-images/workflows/CI/badge.svg)
 
 # Puzl Docker images
-Set of bash scripts and Jinja templates used to automatically build and push Docker images, which are using on [puzl.ee](https://puzl.ee).
+Set of bash scripts and Jinja templates used to automatically build and push Docker images, which are using on [puzl.cloud](https://puzl.cloud).
 
 ## What for?
-On Puzl, we have [cloud app Marketplace](https://puzl.ee/cloud-marketplace) that contains various apps. Some of these apps may require the similar environment to run, some of them not. We want to know, which Docker image can be used to run which application.
+On Puzl, we have [cloud app Marketplace](https://puzl.cloud/cloud-marketplace) that contains various apps. Some of these apps may require the similar environment to run, some of them not. We want to know, which Docker image can be used to run which application.
 
 ## Metadata-first approach
 1. We use GitOps way to manage Docker images. All Dockerfiles sources are stored in one repo (this) and managed centrally.

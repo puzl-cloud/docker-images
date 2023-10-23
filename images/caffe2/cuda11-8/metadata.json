@@ -1,0 +1,64 @@
+{
+    "name": "caffe2",
+    "sourceImage": "nvidia/cuda",
+    "sourceTag": "11.8.0-cudnn8-devel-ubuntu22.04",
+    "version": "1.2.0",
+    "interpreters": [
+        "python3.10",
+        "python3.11"
+    ],
+    "packages": [
+        {
+            "name": "torch",
+            "version": "2.1.0",
+            "type": "pip"
+        },
+        {
+            "name": "torchvision",
+            "version": "0.16.0",
+            "type": "pip"
+        },
+        {
+            "name": "torchaudio",
+            "version": "2.1.0",
+            "type": "pip"
+        },
+        {
+            "name": "jupyterlab",
+            "version": "4.0.7",
+            "type": "pip"
+        },
+        {
+            "name": "caffe2",
+            "type": "os"
+        },
+        {
+            "name": "rclone",
+            "type": "os"
+        },
+        {
+            "name": "conda",
+            "type": "os"
+        },
+        {
+            "name": "openssh-server",
+            "type": "os"
+        },
+        {
+            "name": "rsync",
+            "type": "os"
+        },
+        {
+            "name": "cuda",
+            "version": "11.8",
+            "type": "os"
+        }
+    ],
+    "image": {
+        "tagPrefix": "2.1.0-cuda11.8-cudnn8-jupyter"
+    },
+    "iconUrl": "https://static-cdn.puzl.ee/master/static/images/docker-images/caffe2/caffe2.svg",
+    "description": "Caffe2 ML framework with various python runtime.",
+    "enable": true,
+    "skipTests": false
+}
